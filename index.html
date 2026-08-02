@@ -28,7 +28,6 @@
             line-height: 1.5;
         }
 
-        /* Üst Bilgi (Top Bar) */
         .top-bar {
             background-color: var(--secondary-color);
             color: #ccc;
@@ -52,7 +51,6 @@
             font-weight: 500;
         }
 
-        /* Ana Header */
         header {
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -80,21 +78,32 @@
             color: var(--primary-color);
             letter-spacing: -1px;
             text-transform: uppercase;
+            cursor: pointer;
         }
 
         .header-ad {
-            background: #eee;
+            background: linear-gradient(135deg, #ff9900, #ff5500);
             width: 450px;
             height: 60px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #888;
-            font-size: 13px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
             border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-align: center;
         }
 
-        /* Navigasyon Menüsü */
+        .header-ad span {
+            font-size: 11px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
         nav {
             background-color: var(--primary-color);
         }
@@ -121,7 +130,6 @@
             background-color: rgba(0, 0, 0, 0.15);
         }
 
-        /* Son Dakika Bandı */
         .breaking-news {
             background-color: #fff3f3;
             border-left: 4px solid var(--primary-color);
@@ -144,7 +152,6 @@
             text-transform: uppercase;
         }
 
-        /* İçerik Düzeni */
         .main-layout {
             display: grid;
             grid-template-columns: 2.2fr 1fr;
@@ -161,7 +168,6 @@
             }
         }
 
-        /* Haber Kartları */
         .card {
             background: var(--card-bg);
             padding: 25px;
@@ -215,7 +221,6 @@
             justify-content: space-between;
         }
 
-        /* Yan Menü (Sidebar) */
         .sidebar-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -271,7 +276,45 @@
             color: var(--primary-color);
         }
 
-        /* Footer */
+        /* Modal / Pop-up Tasarımı */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
         footer {
             background-color: var(--secondary-color);
             color: #aaa;
@@ -305,6 +348,7 @@
             color: #aaa;
             text-decoration: none;
             font-size: 13px;
+            cursor: pointer;
         }
 
         .footer-links a:hover {
@@ -329,7 +373,7 @@
             <div class="top-bar-left">
                 <span>Ankara 21°C</span> ☀️ Son Dakika Gelişmeleri
             </div>
-            <div class="top-bar-right">
+            <div class="top-bar-right" id="current-date">
                 Pazar, 2 Ağustos 2026
             </div>
         </div>
@@ -338,20 +382,24 @@
     <!-- Ana Başlık ve Reklam Alanı -->
     <header>
         <div class="container header-main">
-            <div class="logo">HABERTÜRK</div>
-            <div class="header-ad">REKLAM ALANI (728x90)</div>
+            <div class="logo" onclick="location.reload();">HABERTÜRK</div>
+            <!-- Sahte Reklam Alanı (Tıklanabilir) -->
+            <div class="header-ad" onclick="openModal('Tebrikler! 1 Milyonuncu Ziyaretçi Oldunuz! Ödülünüzü almak için tıklayın.')">
+                🎉 GÖZLERİNize İNANAMAYACAKSINIZ! 
+                <span>Tıkla ve iPhone 17 Pro Kazan! (SPONSORLU)</span>
+            </div>
         </div>
         <nav>
             <div class="container">
                 <ul>
-                    <li><a href="#">Son Dakika</a></li>
-                    <li><a href="#">Gündem</a></li>
-                    <li><a href="#">Ekonomi</a></li>
-                    <li><a href="#">Dünya</a></li>
-                    <li><a href="#">Spor</a></li>
-                    <li><a href="#">Teknoloji</a></li>
-                    <li><a href="#">Yazarlar</a></li>
-                    <li><a href="#">Otomobil</a></li>
+                    <li><a href="#" onclick="filterCategory('Son Dakika')">Son Dakika</a></li>
+                    <li><a href="#" onclick="filterCategory('Gündem')">Gündem</a></li>
+                    <li><a href="#" onclick="filterCategory('Ekonomi')">Ekonomi</a></li>
+                    <li><a href="#" onclick="filterCategory('Dünya')">Dünya</a></li>
+                    <li><a href="#" onclick="filterCategory('Spor')">Spor</a></li>
+                    <li><a href="#" onclick="filterCategory('Teknoloji')">Teknoloji</a></li>
+                    <li><a href="#" onclick="filterCategory('Yazarlar')">Yazarlar</a></li>
+                    <li><a href="#" onclick="filterCategory('Otomobil')">Otomobil</a></li>
                 </ul>
             </div>
         </nav>
@@ -361,7 +409,7 @@
         <!-- Son Dakika Kayan Duyuru Bandı -->
         <div class="breaking-news">
             <span class="breaking-tag">SON DAKİKA</span>
-            <span>Resmi Gazete ile yayımlanan yeni düzenleme sonrasında kamuoyunda tartışmalar hız kesmeden devam ediyor.</span>
+            <span id="breaking-text">Resmi Gazete ile yayımlanan yeni düzenleme sonrasında kamuoyunda tartışmalar hız kesmeden devam ediyor.</span>
         </div>
 
         <!-- Ana İçerik Yapısı -->
@@ -389,6 +437,26 @@
                         <span>Kategori: Ekonomi Servisi</span>
                     </p>
                 </div>
+
+                <div class="card">
+                    <span class="badge">Teknoloji</span>
+                    <h2>Yapay Zeka Sektöründe Deprem: Yeni Yerli Model Tanıtıldı</h2>
+                    <p>Türkiye'nin teknoloji atılımları kapsamında geliştirilen yerli yapay zeka modeli, dil işleme ve veri analizi konularında küresel rakiplerine meydan okuyor. Uzmanlar yazılımın güvenlik altyapısına dikkat çekiyor.</p>
+                    <p class="news-meta">
+                        <span>Yayınlanma: 02 Ağustos 2026</span>
+                        <span>Kategori: Teknoloji Servisi</span>
+                    </p>
+                </div>
+
+                <div class="card">
+                    <span class="badge">Spor</span>
+                    <h2>Milli Takım'dan Kritik Zafer: Dünya Kupası Yolunda Dev Adım</h2>
+                    <p>Deplasmanda oynanan zorlu karşılaşmada rakibini üstün bir oyunla mağlup eden ay-yıldızlı ekibimiz, puanını yükselterek gruptaki liderlik koltuğunu sağlamlaştırdı.</p>
+                    <p class="news-meta">
+                        <span>Yayınlanma: 02 Ağustos 2026</span>
+                        <span>Kategori: Spor Servisi</span>
+                    </p>
+                </div>
             </main>
 
             <!-- Sağ Taraf: Çok Okunanlar ve Gündem Listesi -->
@@ -398,19 +466,19 @@
                     <ul class="sidebar-list">
                         <li>
                             <span class="num">1</span>
-                            <a href="#">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve güncel fiyat listesi duyuruldu</a>
+                            <a href="#" onclick="openModal('Yerli otomobil TOGG yeni renk seçenekleri ve artırılmış menzil kapasitesiyle şubat ayında ön siparişe çıkıyor.')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve güncel fiyat listesi duyuruldu</a>
                         </li>
                         <li>
                             <span class="num">2</span>
-                            <a href="#">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
+                            <a href="#" onclick="openModal('Meteoroloji Genel Müdürlüğü, İstanbul ve çevre illerde ani su baskınlarına karşı vatandaşları uyardı.')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
                         </li>
                         <li>
                             <span class="num">3</span>
-                            <a href="#">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
+                            <a href="#" onclick="openModal('Dev derbide teknik direktörlerin sahaya sürecekleri ilk 11 ler büyük ölçüde netleşti.')">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
                         </li>
                         <li>
                             <span class="num">4</span>
-                            <a href="#">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
+                            <a href="#" onclick="openModal('Borsa İstanbul BIST 100 endeksi haftanın ilk işlem gününe güçlü bir yükselişle başladı.')">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
                         </li>
                     </ul>
                 </div>
@@ -419,13 +487,13 @@
                     <div class="sidebar-title">Döviz & Altın</div>
                     <ul class="sidebar-list">
                         <li>
-                            <a href="#"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
+                            <a href="#" onclick="openModal('Dolar kuru serbest piyasada anlık olarak 35.80 TL seviyesinden işlem görmektedir.')"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
                         </li>
                         <li>
-                            <a href="#"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
+                            <a href="#" onclick="openModal('Euro kuru serbest piyasada anlık olarak 38.65 TL seviyesinden işlem görmektedir.')"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
                         </li>
                         <li>
-                            <a href="#"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
+                            <a href="#" onclick="openModal('Kapalıçarşı gram altın fiyatı 2.650 TL civarında alıcı buluyor.')"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
                         </li>
                     </ul>
                 </div>
@@ -434,15 +502,24 @@
         </div>
     </div>
 
+    <!-- Etkileşimli Modal (Açılır Pencere) -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 style="margin-bottom: 15px; color: var(--primary-color);">HABERTÜRK BİLGİLENDİRME</h3>
+            <p id="modal-text" style="color: #333; font-size: 15px;"></p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-logo">HABERTÜRK</div>
             <ul class="footer-links">
-                <li><a href="#">Hakkımızda</a></li>
-                <li><a href="#">Gizlilik Politikası</a></li>
-                <li><a href="#">İletişim</a></li>
-                <li><a href="#">Künye</a></li>
+                <li><a onclick="openModal('Habertürk Kurumsal: Türkiye’nin en güvenilir(!)...')">Hakkımızda</a></li>
+                <li><a onclick="openModal('Gizlilik Politikası: Bu site tamamen şaka amaçlı kurgulanmıştır.')">Gizlilik Politikası</a></li>
+                <li><a onclick="openModal('İletişim: Bize ulaşmak için hayal gücünüzü kullanabilirsiniz.')">İletişim</a></li>
+                <li><a onclick="openModal('Künye: Bu prototip tamamen eğlence amaçlıdır.')">Künye</a></li>
             </ul>
         </div>
         <div class="container">
@@ -451,6 +528,28 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function openModal(message) {
+            document.getElementById('modal-text').innerText = message;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        function filterCategory(category) {
+            openModal(category + ' kategorisine ait güncel haberler filtreleniyor (Şaka sitesi prototipidir).');
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
