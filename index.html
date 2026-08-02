@@ -168,15 +168,50 @@
             }
         }
 
+        /* En üstteki senin haberin (Büyük Manşet) */
+        .main-card {
+            background: var(--card-bg);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 2px solid var(--primary-color);
+        }
+
+        .main-card h1 {
+            font-size: 28px;
+            color: #111;
+            margin-bottom: 15px;
+            line-height: 1.35;
+            font-weight: 800;
+        }
+
+        .main-card p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Yan yana grid yapısı için haberler */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
         .card {
             background: var(--card-bg);
-            padding: 25px;
-            margin-bottom: 25px;
+            padding: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
             cursor: pointer;
             transition: transform 0.1s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
@@ -188,43 +223,60 @@
             background-color: #f0f0f0;
             color: var(--primary-color);
             padding: 4px 10px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             border-radius: 3px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-        }
-
-        .card h1 {
-            font-size: 26px;
-            color: #111;
-            margin-bottom: 15px;
-            line-height: 1.35;
-            font-weight: 800;
+            align-self: flex-start;
         }
 
         .card h2 {
-            font-size: 20px;
+            font-size: 17px;
             color: #222;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 700;
+            line-height: 1.4;
         }
 
         .card p {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 15px;
-            line-height: 1.7;
+            line-height: 1.5;
         }
 
         .news-meta {
-            font-size: 13px;
+            font-size: 12px;
             color: #999;
             border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-            margin-top: 20px;
+            padding-top: 10px;
             display: flex;
             justify-content: space-between;
+        }
+
+        /* Sahte Reklam Kutusu İçerik Arasında */
+        .in-content-ad {
+            background: #fff8f8;
+            border: 2px dashed var(--primary-color);
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            grid-column: span 2;
+        }
+
+        .in-content-ad h3 {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .in-content-ad p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 0;
         }
 
         .sidebar-section {
@@ -281,29 +333,6 @@
 
         .sidebar-list a:hover {
             color: var(--primary-color);
-        }
-
-        /* Sahte Reklam Kutusu İçerik Arasında */
-        .in-content-ad {
-            background: #fff8f8;
-            border: 2px dashed var(--primary-color);
-            padding: 20px;
-            text-align: center;
-            border-radius: 6px;
-            margin-bottom: 25px;
-            cursor: pointer;
-        }
-
-        .in-content-ad h3 {
-            color: var(--primary-color);
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .in-content-ad p {
-            color: #555;
-            font-size: 14px;
-            margin-bottom: 0;
         }
 
         /* Modal / Pop-up Tasarımı */
@@ -444,179 +473,188 @@
         <!-- Ana İçerik Yapısı -->
         <div class="main-layout">
             
-            <!-- Sol Taraf: 20+ Haber Kartı -->
+            <!-- Sol Taraf: Senin Haberir ve Yan Yana 20+ Haber -->
             <main class="content-left">
                 
-                <!-- 1. Haber -->
-                <div class="card" onclick="openModal('Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu. Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek.')">
+                <!-- 1. Senin İstediğin Özel Haber (Aynı Kaldı ve Tam Genişlikte) -->
+                <div class="main-card">
                     <span class="badge">Gündem Özel</span>
                     <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
-                    <p><strong>Ankara —</strong> Devlet tarafından resmi gazete ile yayınlanan yeni ceza düzenlemesi çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına çok ciddi cezalar geldi ama af için kefalet ödenebilecek ve ceza sicile islenemeyecek.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Hukuk</span></p>
+                    <p class="news-meta">
+                        <span>Yayınlanma: 02 Ağustos 2026 - 09:03</span>
+                        <span>Kaynak: HABERTÜRK Ankara</span>
+                    </p>
+                    <p><strong>Ankara —</strong> Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.</p>
+                    <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
                 </div>
 
-                <!-- 2. Haber -->
-                <div class="card" onclick="openModal('Merkez Bankası faiz kararını açıkladı, piyasalar anlık tepki gösterdi.')">
-                    <span class="badge">Ekonomi</span>
-                    <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
-                    <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları yakından takip ediyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Ekonomi</span></p>
-                </div>
+                <!-- Diğer 20 Haber Yan Yana (Grid) Diziliyor -->
+                <div class="news-grid">
+                    
+                    <!-- 2. Haber -->
+                    <div class="card" onclick="openModal('Merkez Bankası faiz kararını açıkladı, piyasalar anlık tepki gösterdi.')">
+                        <span class="badge">Ekonomi</span>
+                        <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
+                        <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları takip ediyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                    </div>
 
-                <!-- 3. Haber -->
-                <div class="card" onclick="openModal('TOGG yeni donanım paketleri ve güncel fiyat listesiyle dikkat çekiyor.')">
-                    <span class="badge">Teknoloji</span>
-                    <h2>Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu</h2>
-                    <p>Türkiye'nin gururu yerli elektrikli otomobil TOGG için yeni renk seçenekleri ve artırılmış menzil kapasitesiyle siparişler başlıyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Otomobil</span></p>
-                </div>
+                    <!-- 3. Haber -->
+                    <div class="card" onclick="openModal('TOGG yeni donanım paketleri ve güncel fiyat listesiyle dikkat çekiyor.')">
+                        <span class="badge">Teknoloji</span>
+                        <h2>Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu</h2>
+                        <p>Türkiye'nin elektrikli otomobili TOGG için yeni renk seçenekleri ve artırılmış menzil kapasitesi açıklandı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Otomobil</span></div>
+                    </div>
 
-                <!-- SAHTE REKLAM KUTUSU 1 -->
-                <div class="in-content-ad" onclick="openModal('Tebrikler! 500 TL Değerinde Hediye Çeki Kazandınız! Hemen formu doldurun.')">
-                    <h3>📢 SPONSORLU İLAN: 10 Saniyede Zengin Olun!</h3>
-                    <p>Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sırrı öğrenin!</p>
-                </div>
+                    <!-- SAHTE REKLAM KUTUSU 1 -->
+                    <div class="in-content-ad" onclick="openModal('Tebrikler! 500 TL Değerinde Hediye Çeki Kazandınız!')">
+                        <h3>📢 SPONSORLU İLAN: 10 Saniyede Zengin Olun!</h3>
+                        <p>Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sırrı öğrenin!</p>
+                    </div>
 
-                <!-- 4. Haber -->
-                <div class="card" onclick="openModal('Meteoroloji İstanbulluları fırtınaya karşı uyardı.')">
-                    <span class="badge">Yaşam</span>
-                    <h2>İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı</h2>
-                    <p>İstanbul'da haft sonu beklenen şiddetli sağanak yağış ve fırtına nedeniyle yetkililer su baskınlarına karşı uyardı.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Yaşam</span></p>
-                </div>
+                    <!-- 4. Haber -->
+                    <div class="card" onclick="openModal('Meteoroloji İstanbulluları fırtınaya karşı uyardı.')">
+                        <span class="badge">Yaşam</span>
+                        <h2>İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı</h2>
+                        <p>İstanbul'da haft sonu beklenen şiddetli sağanak yağış ve fırtına nedeniyle yetkililer uyardı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
+                    </div>
 
-                <!-- 5. Haber -->
-                <div class="card" onclick="openModal('Süper Ligde dev derbinin muhtemel 11leri netleşti.')">
-                    <span class="badge">Spor</span>
-                    <h2>Süper Lig'de Derbi Heyecanı: Muhtemel 11'ler Belli Oldu</h2>
-                    <p>Ligin zirvesini yakından ilgilendiren dev karşılaşmada teknik direktörlerin sahaya süreceği kadrolar şekillendi.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Spor</span></p>
-                </div>
+                    <!-- 5. Haber -->
+                    <div class="card" onclick="openModal('Süper Ligde dev derbinin muhtemel 11leri netleşti.')">
+                        <span class="badge">Spor</span>
+                        <h2>Süper Lig'de Derbi Heyecanı: Muhtemel 11'ler Belli Oldu</h2>
+                        <p>Zirveyi ilgilendiren dev karşılaşmada teknik direktörlerin sahaya süreceği kadrolar şekillendi.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
+                    </div>
 
-                <!-- 6. Haber -->
-                <div class="card" onclick="openModal('Borsa İstanbul güne rekorla başladı.')">
-                    <span class="badge">Borsa</span>
-                    <h2>Borsada Rekor Kıran Hisseler Yatırımcısının Yüzünü Güldürdü</h2>
-                    <p>BIST 100 endeksi haftanın ilk işlem gününde güçlü bir yükseliş ivmesi yakalayarak tarihi zirvesini test etti.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Ekonomi</span></p>
-                </div>
+                    <!-- 6. Haber -->
+                    <div class="card" onclick="openModal('Borsa İstanbul güne rekorla başladı.')">
+                        <span class="badge">Borsa</span>
+                        <h2>Borsada Rekor Kıran Hisseler Yatırımcısının Yüzünü Güldürdü</h2>
+                        <p>BIST 100 endeksi haftanın ilk işlem gününde güçlü bir yükseliş ivmesi yakaladı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                    </div>
 
-                <!-- 7. Haber -->
-                <div class="card" onclick="openModal('Yapay zeka alanında yeni milli model geliştirildi.')">
-                    <span class="badge">Teknoloji</span>
-                    <h2>Yapay Zeka Sektöründe Deprem: Yerli Model Tanıtıldı</h2>
-                    <p>Dil işleme ve veri analizi konusunda küresel rakiplerine meydan okuyan yerli yazılım güvenliğiyle göz dolduruyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Teknoloji</span></p>
-                </div>
+                    <!-- 7. Haber -->
+                    <div class="card" onclick="openModal('Yapay zeka alanında yeni milli model geliştirildi.')">
+                        <span class="badge">Teknoloji</span>
+                        <h2>Yapay Zeka Sektöründe Deprem: Yerli Model Tanıtıldı</h2>
+                        <p>Dil işleme ve veri analizi konusunda küresel rakiplerine meydan okuyan yerli yazılım tanıtıldı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Teknoloji</span></div>
+                    </div>
 
-                <!-- 8. Haber -->
-                <div class="card" onclick="openModal('Milli takım deplasmanda galibiyetle döndü.')">
-                    <span class="badge">Spor</span>
-                    <h2>Milli Takım'dan Kritik Zafer: Dünya Kupası Yolunda Dev Adım</h2>
-                    <p>Zorlu deplasman karşılaşmasından 3 puanla ayrılan ay-yıldızlı ekibimiz gruptaki liderliğini perçinledi.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Spor</span></p>
-                </div>
+                    <!-- 8. Haber -->
+                    <div class="card" onclick="openModal('Milli takım deplasmanda galibiyetle döndü.')">
+                        <span class="badge">Spor</span>
+                        <h2>Milli Takım'dan Kritik Zafer: Dünya Kupası Yolunda Dev Adım</h2>
+                        <p>Zorlu deplasman karşılaşmasından 3 puanla ayrılan ekibimiz gruptaki liderliğini perçinledi.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
+                    </div>
 
-                <!-- 9. Haber -->
-                <div class="card" onclick="openModal('Emekli maaş zammı detayları netleşiyor.')">
-                    <span class="badge">Gündem</span>
-                    <h2>Emekli ve Memur Maaşlarında Yeni Düzenleme Sinyali</h2>
-                    <p>Milyonlarca vatandaşı ilgilendiren yeni ekonomik paket ile ilgili kabine toplantısından çıkacak kararlar bekleniyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Gündem</span></p>
-                </div>
+                    <!-- 9. Haber -->
+                    <div class="card" onclick="openModal('Emekli maaş zammı detayları netleşiyor.')">
+                        <span class="badge">Gündem</span>
+                        <h2>Emekli ve Memur Maaşlarında Yeni Düzenleme Sinyali</h2>
+                        <p>Milyonları ilgilendiren ekonomik paket ile ilgili kabine toplantısı kararları bekleniyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Gündem</span></div>
+                    </div>
 
-                <!-- 10. Haber -->
-                <div class="card" onclick="openModal('Uzayda yeni gezegen keşfedildi.')">
-                    <span class="badge">Bilim</span>
-                    <h2>Astronomlar Dünyaya Benzer Yeni Bir Gezegen Keşfetti</h2>
-                    <p>James Webb uzay teleskobu kullanılarak yapılan son gözlemlerde su barındırma ihtimali olan yeni bir ötegezegen bulundu.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Bilim</span></p>
-                </div>
+                    <!-- SAHTE REKLAM KUTUSU 2 -->
+                    <div class="in-content-ad" onclick="openModal('Kilo Verme Mucizesi! 1 haftada 10 kilo garantili çaylar!')">
+                        <h3>⚡ DİKKAT: Bu Çay Yaşlanmayı Durduruyor!</h3>
+                        <p>Doktorların gizli tuttuğu o formül nihayet açıklandı. Detaylar için tıklayın!</p>
+                    </div>
 
-                <!-- SAHTE REKLAM KUTUSU 2 -->
-                <div class="in-content-ad" onclick="openModal('Kilo Verme Mucizesi! 1 haftada 10 kilo garantili çaylar burada!')">
-                    <h3>⚡ DİKKAT: Bu Çay Yaşlanmayı Durduruyor!</h3>
-                    <p>Doktorların gizli tuttuğu o formül nihayet açıklandı. Detaylar için hemen tıklayın!</p>
-                </div>
+                    <!-- 10. Haber -->
+                    <div class="card" onclick="openModal('Uzayda yeni gezegen keşfedildi.')">
+                        <span class="badge">Bilim</span>
+                        <h2>Astronomlar Dünyaya Benzer Yeni Bir Gezegen Keşfetti</h2>
+                        <p>James Webb teleskobu kullanılarak yapılan gözlemlerde su barındırma ihtimali olan yer bulundu.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Bilim</span></div>
+                    </div>
 
-                <!-- 11. Haber -->
-                <div class="card" onclick="openModal('Sinema dünyasında yılın filmi vizyona giriyor.')">
-                    <span class="badge">Kültür-Sanat</span>
-                    <h2>Sinema Dünyasında Yılın Beklenen Filmi Vizyona Giriyor</h2>
-                    <p>Uluslararası festivallerde ödül toplayan yerli yapım sinemaseverlerden tam not almayı başardı.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Yaşam</span></p>
-                </div>
+                    <!-- 11. Haber -->
+                    <div class="card" onclick="openModal('Sinema dünyasında yılın filmi vizyona giriyor.')">
+                        <span class="badge">Kültür-Sanat</span>
+                        <h2>Sinema Dünyasında Yılın Beklenen Filmi Vizyona Giriyor</h2>
+                        <p>Uluslararası festivallerde ödül toplayan yerli yapım sinemaseverlerden tam not aldı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
+                    </div>
 
-                <!-- 12. Haber -->
-                <div class="card" onclick="openModal('Emlak piyasasında konut kredisi faizleri düşüyor mu?')">
-                    <span class="badge">Emlak</span>
-                    <h2>Konut Kredilerinde Yeni Faiz İndirimi Beklentisi</h2>
-                    <p>Ev sahibi olmak isteyenler için bankaların sunduğu yeni konut finansman paketleri sektörde hareketlilik yarattı.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Ekonomi</span></p>
-                </div>
+                    <!-- 12. Haber -->
+                    <div class="card" onclick="openModal('Konut kredisi faizleri düşüyor mu?')">
+                        <span class="badge">Emlak</span>
+                        <h2>Konut Kredilerinde Yeni Faiz İndirimi Beklentisi</h2>
+                        <p>Ev sahibi olmak isteyenler için bankaların sunduğu yeni finansman paketleri açıklandı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                    </div>
 
-                <!-- 13. Haber -->
-                <div class="card" onclick="openModal('Sağlık bakanlığından yeni grip uyarısı.')">
-                    <span class="badge">Sağlık</span>
-                    <h2>Uzmanlardan Sonbahar Öncesi Kritik Grip Uyarısı</h2>
-                    <p>Mevsim geçişlerinde artış gösteren üst solunum yolu enfeksiyonlarına karşı bağışıklık sistemini güçlendirme önerileri.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Sağlık</span></p>
-                </div>
+                    <!-- 13. Haber -->
+                    <div class="card" onclick="openModal('Sağlık bakanlığından yeni grip uyarısı.')">
+                        <span class="badge">Sağlık</span>
+                        <h2>Uzmanlardan Sonbahar Öncesi Kritik Grip Uyarısı</h2>
+                        <p>Mevsim geçişlerinde artış gösteren üst solunum yolu enfeksiyonlarına karşı önlemler.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Sağlık</span></div>
+                    </div>
 
-                <!-- 14. Haber -->
-                <div class="card" onclick="openModal('E-ticaret sektörü yeni rekorlar kırıyor.')">
-                    <span class="badge">Ekonomi</span>
-                    <h2>E-Ticaret Sektöründe İşlem Hacmi Katlanarak Artıyor</h2>
-                    <p>Dijital alışveriş alışkanlıklarının değişmesiyle birlikte online pazar yerlerindeki yıllık ciro rekor seviyeye ulaştı.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Ekonomi</span></p>
-                </div>
+                    <!-- 14. Haber -->
+                    <div class="card" onclick="openModal('E-ticaret sektörü yeni rekorlar kırıyor.')">
+                        <span class="badge">Ekonomi</span>
+                        <h2>E-Ticaret Sektöründe İşlem Hacmi Katlanarak Artıyor</h2>
+                        <p>Dijital alışveriş alışkanlıklarının değişmesiyle birlikte pazar yerlerindeki ciro arttı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                    </div>
 
-                <!-- 15. Haber -->
-                <div class="card" onclick="openModal('Eğitimde yeni müfredat dönemi başlıyor.')">
-                    <span class="badge">Eğitim</span>
-                    <h2>Okullarda Yeni Eğitim-Öğretim Yılı Müfredatı Netleşti</h2>
-                    <p>Milli Eğitim Bakanlığı tarafından hazırlanan yeni nesil ders içerikleri ve beceri temelli eğitim modeli uygulanmaya başlıyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Eğitim</span></p>
-                </div>
+                    <!-- 15. Haber -->
+                    <div class="card" onclick="openModal('Eğitimde yeni müfredat dönemi başlıyor.')">
+                        <span class="badge">Eğitim</span>
+                        <h2>Okullarda Yeni Eğitim-Öğretim Yılı Müfredatı Netleşti</h2>
+                        <p>Milli Eğitim Bakanlığı tarafından hazırlanan yeni nesil ders içerikleri uygulanıyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Eğitim</span></div>
+                    </div>
 
-                <!-- 16. Haber -->
-                <div class="card" onclick="openModal('Turizm sezonunda erken rezervasyonlar patlama yaptı.')">
-                    <span class="badge">Turizm</span>
-                    <h2>Yaz Sezonunda Turizm Rekoru: Otellerde Doluluk Oranı %95</h2>
-                    <p>Yerli ve yabancı turistlerin gözdesi olan sahil beldelerinde yaz sezonu boyunca tüm tesisler tam kapasite hizmet veriyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Yaşam</span></p>
-                </div>
+                    <!-- 16. Haber -->
+                    <div class="card" onclick="openModal('Turizm sezonunda erken rezervasyonlar patlama yaptı.')">
+                        <span class="badge">Turizm</span>
+                        <h2>Yaz Sezonunda Turizm Rekoru: Otellerde Doluluk Oranı %95</h2>
+                        <p>Gözde sahil beldelerinde yaz sezonu boyunca tüm tesisler tam kapasite hizmet veriyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
+                    </div>
 
-                <!-- 17. Haber -->
-                <div class="card" onclick="openModal('Girişimciler için yeni hibe destekleri açıklandı.')">
-                    <span class="badge">Girişim</span>
-                    <h2>KOBİ ve Girişimcilere 1 Milyon TL'ye Kadar Hibe Desteği</h2>
-                    <p>Sanayi ve Teknoloji Bakanlığı tarafından teknoloji tabanlı girişimleri desteklemek üzere yeni bir hibe programı başlatıldı.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Ekonomi</span></p>
-                </div>
+                    <!-- 17. Haber -->
+                    <div class="card" onclick="openModal('Girişimciler için yeni hibe destekleri açıklandı.')">
+                        <span class="badge">Girişim</span>
+                        <h2>KOBİ ve Girişimcilere 1 Milyon TL'ye Kadar Hibe Desteği</h2>
+                        <p>Sanayi ve Teknoloji Bakanlığı tarafından yeni bir hibe programı başlatıldı.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                    </div>
 
-                <!-- 18. Haber -->
-                <div class="card" onclick="openModal('Siber güvenlik uzmanlarından oltalama dolandırıcılığı uyarısı.')">
-                    <span class="badge">Teknoloji</span>
-                    <h2>Siber Güvenlik Uzmanlarından "Sahte SMS" Uyarısı</h2>
-                    <p>Vatandaşların cep telefonlarına gelen sahte kargo ve fatura bildirimleri üzerinden gerçekleştirilen dolandırıcılık vakaları artıyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Teknoloji</span></p>
-                </div>
+                    <!-- 18. Haber -->
+                    <div class="card" onclick="openModal('Siber güvenlik uzmanlarından oltalama dolandırıcılığı uyarısı.')">
+                        <span class="badge">Teknoloji</span>
+                        <h2>Siber Güvenlik Uzmanlarından "Sahte SMS" Uyarısı</h2>
+                        <p>Vatandaşların telefonlarına gelen sahte kargo bildirimleri üzerinden dolandırıcılık artıyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Teknoloji</span></div>
+                    </div>
 
-                <!-- 19. Haber -->
-                <div class="card" onclick="openModal('Hava yolu şirketlerinden yeni rotalar duyuruldu.')">
-                    <span class="badge">Ulaşım</span>
-                    <h2>Uluslararası Uçuşlarda Yeni Rotalar ve Seferler Başlıyor</h2>
-                    <p>Türk Hava Yolları başta olmak üzere birçok hava yolu firması kış sezonunda uçuş ağını yeni kıtalarla genişletiyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Yaşam</span></p>
-                </div>
+                    <!-- 19. Haber -->
+                    <div class="card" onclick="openModal('Hava yolu şirketlerinden yeni rotalar duyuruldu.')">
+                        <span class="badge">Ulaşım</span>
+                        <h2>Uluslararası Uçuşlarda Yeni Rotalar ve Seferler Başlıyor</h2>
+                        <p>Türk Hava Yolları kış sezonunda uçuş ağını yeni kıtalarla genişletiyor.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
+                    </div>
 
-                <!-- 20. Haber -->
-                <div class="card" onclick="openModal('Tarımda akıllı teknolojiler dönemi başlıyor.')">
-                    <span class="badge">Tarım</span>
-                    <h2>Tarımda Dijital Dönüşüm: Akıllı Sulama Sistemleri Yaygınlaşıyor</h2>
-                    <p>Kuraklıkla mücadele kapsamında çiftçilere yönelik hayata geçirilen yapay zeka destekli akıllı sulama projeleri verimi artırıyor.</p>
-                    <p class="news-meta"><span>Yayınlanma: 02 Ağustos 2026</span><span>Kategori: Gündem</span></p>
+                    <!-- 20. Haber -->
+                    <div class="card" onclick="openModal('Tarımda akıllı teknolojiler dönemi başlıyor.')">
+                        <span class="badge">Tarım</span>
+                        <h2>Tarımda Dijital Dönüşüm: Akıllı Sulama Sistemleri</h2>
+                        <p>Kuraklıkla mücadele kapsamında çiftçilere yönelik yapay zeka destekli sulama projeleri.</p>
+                        <div class="news-meta"><span>02.08.2026</span><span>Gündem</span></div>
+                    </div>
+
                 </div>
 
             </main>
@@ -628,19 +666,19 @@
                     <ul class="sidebar-list">
                         <li>
                             <span class="num">1</span>
-                            <a onclick="openModal('Yerli otomobil TOGG yeni renk seçenekleri ve artırılmış menzil kapasitesiyle ön siparişe çıkıyor.')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve güncel fiyat listesi duyuruldu</a>
+                            <a onclick="openModal('Yerli otomobil TOGG yeni renk seçenekleriyle ön siparişe çıkıyor.')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi duyuruldu</a>
                         </li>
                         <li>
                             <span class="num">2</span>
-                            <a onclick="openModal('Meteoroloji Genel Müdürlüğü, İstanbul ve çevre illerde ani su baskınlarına karşı vatandaşları uyardı.')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
+                            <a onclick="openModal('Meteoroloji Genel Müdürlüğü, İstanbul için uyardı.')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
                         </li>
                         <li>
                             <span class="num">3</span>
-                            <a onclick="openModal('Dev derbide teknik direktörlerin sahaya sürecekleri ilk 11 ler büyük ölçüde netleşti.')">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
+                            <a onclick="openModal('Dev derbide teknik direktörlerin kadroları netleşti.')">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
                         </li>
                         <li>
                             <span class="num">4</span>
-                            <a onclick="openModal('Borsa İstanbul BIST 100 endeksi haftanın ilk işlem gününe güçlü bir yükselişle başladı.')">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
+                            <a onclick="openModal('Borsa İstanbul endeksi güne yükselişle başladı.')">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
                         </li>
                     </ul>
                 </div>
@@ -649,13 +687,13 @@
                     <div class="sidebar-title">Döviz & Altın</div>
                     <ul class="sidebar-list">
                         <li>
-                            <a onclick="openModal('Dolar kuru serbest piyasada anlık olarak 35.80 TL seviyesinden işlem görmektedir.')"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
+                            <a onclick="openModal('Dolar kuru serbest piyasada 35.80 TL.')"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
                         </li>
                         <li>
-                            <a onclick="openModal('Euro kuru serbest piyasada anlık olarak 38.65 TL seviyesinden işlem görmektedir.')"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
+                            <a onclick="openModal('Euro kuru serbest piyasada 38.65 TL.')"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
                         </li>
                         <li>
-                            <a onclick="openModal('Kapalıçarşı gram altın fiyatı 2.650 TL civarında alıcı buluyor.')"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
+                            <a onclick="openModal('Kapalıçarşı gram altın 2.650 TL.')"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
                         </li>
                     </ul>
                 </div>
