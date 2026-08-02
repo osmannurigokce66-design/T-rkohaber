@@ -8,9 +8,7 @@
         :root {
             --primary-color: #c90000;
             --secondary-color: #1a1a1a;
-            --bg-color: #f7f7f7;
             --card-bg: #ffffff;
-            --text-main: #2b2b2b;
             --text-muted: #666666;
             --border-color: #e5e5e5;
         }
@@ -53,6 +51,7 @@
             border-radius: 4px;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease;
         }
 
         .fullscreen-prompt:hover {
@@ -104,6 +103,7 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
+            user-select: none;
         }
 
         .search-btn:hover {
@@ -365,7 +365,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
             cursor: pointer;
-            transition: transform 0.1s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -483,7 +482,6 @@
             font-size: 14px;
             font-weight: 500;
             line-height: 1.4;
-            transition: color 0.2s;
             cursor: pointer;
         }
 
@@ -530,7 +528,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: opacity 0.2s;
         }
 
         .cookie-accept {
@@ -538,17 +535,9 @@
             color: #fff;
         }
 
-        .cookie-accept:hover {
-            opacity: 0.9;
-        }
-
         .cookie-reject {
             background-color: #444;
             color: #fff;
-        }
-
-        .cookie-reject:hover {
-            background-color: #555;
         }
 
         /* Modal Tasarımı */
@@ -663,10 +652,6 @@
             cursor: pointer;
         }
 
-        .footer-links a:hover {
-            color: #fff;
-        }
-
         .footer-bottom {
             margin-top: 25px;
             padding-top: 20px;
@@ -681,13 +666,20 @@
 
     <!-- 1. GİRİŞ EKRANI: GOOGLE ARAMA SAYFASI -->
     <div id="search-view">
-        <button class="fullscreen-prompt" onclick="toggleFullScreen()">Tam Ekran Yap</button>
+        <button id="fullscreen-btn" class="fullscreen-prompt" onclick="goFullScreen()">Tam Ekran Yap</button>
         <div class="google-logo">
             <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
         </div>
         <div class="search-box-container">
             <input type="text" id="search-input" value="yeni ceza kanunu">
-            <button class="search-btn" onclick="performSearch()">Google'da Ara</button>
+            <!-- Çıkış için basılı tutma özelliği (mousedown, touchstart, mouseup, touchend) eklendi -->
+            <button class="search-btn" 
+                    id="google-search-btn"
+                    onclick="performSearch()"
+                    onmousedown="startLongPress()" 
+                    onmouseup="cancelLongPress()" 
+                    onttouchstart="startLongPress()" 
+                    ontouchend="cancelLongPress()">Google'da Ara</button>
         </div>
     </div>
 
@@ -937,17 +929,36 @@
     </footer>
 
     <script>
-        // Tam ekran fonksiyonu
-        function toggleFullScreen() {
+        let longPressTimer;
+
+        // Tam ekran yapma ve "Tam Ekran Yap" butonunu gizleme
+        function goFullScreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
+                document.documentElement.requestFullscreen().then(() => {
+                    document.getElementById('fullscreen-btn').style.display = 'none';
+                }).catch(err => {
                     alert(`Tam ekran modu başlatılamadı: ${err.message}`);
                 });
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
             }
+        }
+
+        // "Google'da Ara" butonuna basılı tutmaya başlandığında (1.2 saniye sonra tam ekrandan çık)
+        function startLongPress() {
+            longPressTimer = setTimeout(() => {
+                if (document.fullscreenElement) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen().then(() => {
+                            // Tam ekrandan çıkınca "Tam Ekran Yap" butonunu tekrar görünür yap
+                            document.getElementById('fullscreen-btn').style.display = 'block';
+                        });
+                    }
+                }
+            }, 1200); // 1.2 saniye basılı tutma süresi
+        }
+
+        // Basma işlemi erken biterse sayacı iptal et (böylece normal tıklama arama yapmayı engellemez)
+        function cancelLongPress() {
+            clearTimeout(longPressTimer);
         }
 
         // Arama yapma butonu veya enter tuşu
