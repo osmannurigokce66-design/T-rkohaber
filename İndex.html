@@ -3,171 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABERTÜRK - Son Dakika Haberler, Güncel Gelişmeler</title>
+    <title>HABERTÜRK - Türkiye'nin En Güncel Haber Sitesi</title>
     <style>
+        :root {
+            --primary-color: #c90000;
+            --secondary-color: #1a1a1a;
+            --bg-color: #f7f7f7;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
         }
-        header {
-            background-color: #c00;
+
+        /* Üst Bilgi (Top Bar) */
+        .top-bar {
+            background-color: var(--secondary-color);
+            color: #ccc;
+            font-size: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .top-bar-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left span {
+            margin-right: 15px;
             color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 500;
         }
+
+        /* Ana Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .header-flex {
+
+        .header-main {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 0;
         }
+
         .logo {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 38px;
+            font-weight: 900;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+            text-transform: uppercase;
         }
+
+        .header-ad {
+            background: #eee;
+            width: 450px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 13px;
+            border-radius: 4px;
+        }
+
+        /* Navigasyon Menüsü */
+        nav {
+            background-color: var(--primary-color);
+        }
+
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            overflow-x: auto;
         }
+
         nav ul li a {
             color: #fff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
+            padding: 12px 18px;
+            display: block;
+            text-transform: uppercase;
+            transition: background 0.2s;
+            white-space: nowrap;
         }
+
         nav ul li a:hover {
-            text-decoration: underline;
+            background-color: rgba(0, 0, 0, 0.15);
         }
-        .main-content {
+
+        /* Son Dakika Bandı */
+        .breaking-news {
+            background-color: #fff3f3;
+            border-left: 4px solid var(--primary-color);
+            padding: 10px 15px;
+            margin: 20px 0;
+            font-size: 14px;
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            align-items: center;
+            gap: 15px;
+            border-radius: 0 4px 4px 0;
         }
-        .content-left {
-            flex: 3;
+
+        .breaking-tag {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+            text-transform: uppercase;
         }
-        .content-right {
-            flex: 1;
+
+        /* İçerik Düzeni */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
         }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .header-ad {
+                display: none;
+            }
+        }
+
+        /* Haber Kartları */
         .card {
-            background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
         }
-        .card h1 {
-            font-size: 24px;
-            color: #222;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-        .card h2 {
-            font-size: 18px;
-            color: #c00;
-            margin-bottom: 10px;
-        }
-        .card p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .news-meta {
+
+        .badge {
+            display: inline-block;
+            background-color: #f0f0f0;
+            color: var(--primary-color);
+            padding: 4px 10px;
             font-size: 12px;
-            color: #888;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
         }
+
+        .card h1 {
+            font-size: 26px;
+            color: #111;
+            margin-bottom: 15px;
+            line-height: 1.35;
+            font-weight: 800;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            color: #222;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .news-meta {
+            font-size: 13px;
+            color: #999;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Yan Menü (Sidebar) */
+        .sidebar-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
         .sidebar-list {
             list-style: none;
         }
+
         .sidebar-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
+
         .sidebar-list li:last-child {
             border-bottom: none;
         }
+
+        .sidebar-list span.num {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--primary-color);
+            min-width: 20px;
+        }
+
         .sidebar-list a {
             text-decoration: none;
             color: #333;
             font-size: 14px;
-            display: block;
+            font-weight: 500;
+            line-height: 1.4;
+            transition: color 0.2s;
         }
+
         .sidebar-list a:hover {
-            color: #c00;
+            color: var(--primary-color);
         }
+
+        /* Footer */
         footer {
-            background-color: #222;
+            background-color: var(--secondary-color);
             color: #aaa;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 40px 0;
+            font-size: 14px;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
             font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
+    <!-- Üst Bilgi Çubuğu -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-bar-left">
+                <span>Ankara 21°C</span> ☀️ Son Dakika Gelişmeleri
+            </div>
+            <div class="top-bar-right">
+                Pazar, 2 Ağustos 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana Başlık ve Reklam Alanı -->
     <header>
-        <div class="container header-flex">
+        <div class="container header-main">
             <div class="logo">HABERTÜRK</div>
-            <nav>
+            <div class="header-ad">REKLAM ALANI (728x90)</div>
+        </div>
+        <nav>
+            <div class="container">
                 <ul>
+                    <li><a href="#">Son Dakika</a></li>
                     <li><a href="#">Gündem</a></li>
                     <li><a href="#">Ekonomi</a></li>
                     <li><a href="#">Dünya</a></li>
                     <li><a href="#">Spor</a></li>
                     <li><a href="#">Teknoloji</a></li>
+                    <li><a href="#">Yazarlar</a></li>
+                    <li><a href="#">Otomobil</a></li>
                 </ul>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <div class="container main-content">
-        <div class="content-left">
-            <div class="card">
-                <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
-                <p class="news-meta">Yayınlanma Tarihi: 02 Ağustos 2026 | Kategori: Gündem / Hukuk</p>
-                <p><strong>Ankara —</strong> Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.</p>
-                <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
-            </div>
-
-            <div class="card">
-                <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
-                <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları yakından takip ediyor. Uzmanlar piyasalardaki son durumu değerlendiriyor...</p>
-            </div>
+    <div class="container">
+        <!-- Son Dakika Kayan Duyuru Bandı -->
+        <div class="breaking-news">
+            <span class="breaking-tag">SON DAKİKA</span>
+            <span>Resmi Gazete ile yayımlanan yeni düzenleme sonrasında kamuoyunda tartışmalar hız kesmeden devam ediyor.</span>
         </div>
 
-        <div class="content-right">
-            <div class="card">
-                <h2>Günün Öne Çıkanları</h2>
-                <ul class="sidebar-list">
-                    <li><a href="#">⚡ Yerli otomobil TOGG için yeni donanım paketleri duyuruldu</a></li>
-                    <li><a href="#">🌧️ İstanbul'da beklenen sağanak yağış için sarı kodlu uyarı</a></li>
-                    <li><a href="#">⚽ Süper Lig'de derbi heyecanı: Muhtemel 11'ler belli oldu</a></li>
-                    <li><a href="#">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürdü</a></li>
-                </ul>
-            </div>
+        <!-- Ana İçerik Yapısı -->
+        <div class="main-layout">
+            
+            <!-- Sol Taraf: Manşet ve Haber Detayları -->
+            <main class="content-left">
+                <div class="card">
+                    <span class="badge">Gündem Özel</span>
+                    <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
+                    <p class="news-meta">
+                        <span>Yayınlanma: 02 Ağustos 2026 - 09:03</span>
+                        <span>Kaynak: HABERTÜRK Ankara</span>
+                    </p>
+                    <p><strong>Ankara —</strong> Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.</p>
+                    <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
+                </div>
+
+                <div class="card">
+                    <span class="badge">Ekonomi</span>
+                    <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
+                    <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları yakından takip ediyor. Uzmanlar piyasalardaki son durumu ve beklentileri değerlendiriyor...</p>
+                    <p class="news-meta">
+                        <span>Güncelleme: 02 Ağustos 2026</span>
+                        <span>Kategori: Ekonomi Servisi</span>
+                    </p>
+                </div>
+            </main>
+
+            <!-- Sağ Taraf: Çok Okunanlar ve Gündem Listesi -->
+            <aside class="content-right">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Günün En Çok Okunanları</div>
+                    <ul class="sidebar-list">
+                        <li>
+                            <span class="num">1</span>
+                            <a href="#">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve güncel fiyat listesi duyuruldu</a>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <a href="#">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <a href="#">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <a href="#">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Döviz & Altın</div>
+                    <ul class="sidebar-list">
+                        <li>
+                            <a href="#"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
+                        </li>
+                        <li>
+                            <a href="#"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
+                        </li>
+                        <li>
+                            <a href="#"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">HABERTÜRK</div>
+            <ul class="footer-links">
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">Gizlilik Politikası</a></li>
+                <li><a href="#">İletişim</a></li>
+                <li><a href="#">Künye</a></li>
+            </ul>
+        </div>
         <div class="container">
-            <p>&copy; 2026 HABERTÜRK - Tüm Hakları Saklıdır. Bu site şaka amaçlı tasarlanmış bir prototiptir.</p>
+            <div class="footer-bottom">
+                &copy; 2026 HABERTÜRK - Tüm Hakları Saklıdır. Bu web sitesi şaka ve kurgu amaçlı tasarlanmış bir prototiptir.
+            </div>
         </div>
     </footer>
 
