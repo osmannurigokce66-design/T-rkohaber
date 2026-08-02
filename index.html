@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABERTÜRK - Türkiye'nin En Güncel Haber Sitesi</title>
+    <title>Google Arama</title>
     <style>
         :root {
             --primary-color: #c90000;
@@ -23,9 +23,167 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #ffffff;
+            color: #202124;
             line-height: 1.5;
+        }
+
+        /* Başlangıç Ekranı: Google Arama Sayfası Stili */
+        #search-view {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: #fff;
+            position: relative;
+        }
+
+        .fullscreen-prompt {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .fullscreen-prompt:hover {
+            background: #1557b0;
+        }
+
+        .google-logo {
+            font-size: 72px;
+            font-weight: 500;
+            letter-spacing: -4px;
+            margin-bottom: 30px;
+            user-select: none;
+        }
+
+        .google-logo span:nth-child(1) { color: #4285F4; }
+        .google-logo span:nth-child(2) { color: #EA4335; }
+        .google-logo span:nth-child(3) { color: #FBBC05; }
+        .google-logo span:nth-child(4) { color: #4285F4; }
+        .google-logo span:nth-child(5) { color: #34A853; }
+        .google-logo span:nth-child(6) { color: #EA4335; }
+
+        .search-box-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 10px 20px;
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            margin-bottom: 30px;
+        }
+
+        .search-box-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #202124;
+            background: transparent;
+        }
+
+        .search-btn {
+            background: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            color: #3c4043;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            border: 1px solid #dadce0;
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            color: #202124;
+        }
+
+        /* Arama Sonuçları Sayfası Stili */
+        #results-view {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            border-bottom: 1px solid #ebebeb;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .results-logo {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -2px;
+        }
+
+        .results-logo span:nth-child(1) { color: #4285F4; }
+        .results-logo span:nth-child(2) { color: #EA4335; }
+        .results-logo span:nth-child(3) { color: #FBBC05; }
+        .results-logo span:nth-child(4) { color: #4285F4; }
+        .results-logo span:nth-child(5) { color: #34A853; }
+        .results-logo span:nth-child(6) { color: #EA4335; }
+
+        .results-search-box {
+            flex: 1;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 8px 20px;
+            font-size: 14px;
+            box-shadow: 0 1px 6px rgba(32,33,36,.1);
+            background: #fff;
+        }
+
+        .result-item {
+            margin-bottom: 25px;
+        }
+
+        .result-url {
+            font-size: 12px;
+            color: #202124;
+            margin-bottom: 3px;
+        }
+
+        .result-title {
+            font-size: 20px;
+            color: #1a0dab;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+
+        .result-title:hover {
+            text-decoration: underline;
+        }
+
+        .result-desc {
+            font-size: 14px;
+            color: #4d5156;
+            line-height: 1.5;
+        }
+
+        /* Haber Sitesi İçeriği (Asıl Sayfa) */
+        #haberturk-view {
+            display: none;
         }
 
         .top-bar {
@@ -393,7 +551,7 @@
             background-color: #555;
         }
 
-        /* Modal / Pop-up Tasarımı */
+        /* Modal Tasarımı */
         .modal {
             display: none;
             position: fixed;
@@ -521,135 +679,234 @@
 </head>
 <body>
 
-    <!-- Çerez (Cookie) Uyarısı -->
-    <div id="cookie-banner">
-        <div class="cookie-content">
-            <strong>Çerez Bilgilendirmesi</strong>
-            <p>Size daha iyi hizmet sunabilmek, içerikleri ve reklamları kişiselleştirmek için çerezler (cookies) kullanıyoruz. Detaylı bilgi için <a href="#" onclick="openFullNews('Yasal', 'Çerez Politikası', 'Web sitemizde gezinme deneyiminizi geliştirmek amacıyla çerezler kullanılmaktadır. Çerez ayarlarınızı tarayıcınız üzerinden dilediğiniz zaman değiştirebilirsiniz.', '02 Ağustos 2026')" style="color: #ff9900; text-decoration: underline;">Çerez Politikamızı</a> inceleyebilirsiniz.</p>
+    <!-- 1. GİRİŞ EKRANI: GOOGLE ARAMA SAYFASI -->
+    <div id="search-view">
+        <button class="fullscreen-prompt" onclick="toggleFullScreen()">Tam Ekran Yap</button>
+        <div class="google-logo">
+            <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
         </div>
-        <div class="cookie-buttons">
-            <button class="cookie-btn cookie-reject" onclick="acceptCookies()">Tümünü Reddet</button>
-            <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Kabul Et</button>
-        </div>
-    </div>
-
-    <!-- Üst Bilgi Çubuğu -->
-    <div class="top-bar">
-        <div class="top-bar-container">
-            <div class="top-bar-left">
-                <span>Ankara 21°C</span> ☀️ Son Dakika Gelişmeleri
-            </div>
-            <div class="top-bar-right" id="current-date">
-                Pazar, 2 Ağustos 2026
-            </div>
+        <div class="search-box-container">
+            <input type="text" id="search-input" value="yeni ceza kanunu">
+            <button class="search-btn" onclick="performSearch()">Google'da Ara</button>
         </div>
     </div>
 
-    <!-- Ana Başlık ve Reklam Alanı -->
-    <header>
-        <div class="container header-main">
-            <div class="logo" onclick="location.reload();">HABERTÜRK</div>
-            <div class="header-ad" onclick="openFullNews('Sponsorlu Kampanya', 'iPhone 17 Pro Çekilişi', 'Tebrikler! 1 Milyonuncu Ziyaretçi Oldunuz! Ödülünüzü almak için formu doldurun.', '02 Ağustos 2026')">
-                🎉 GÖZLERİNİZE İNANAMAYACAKSINIZ! 
-                <span>Tıkla ve iPhone 17 Pro Kazan! (SPONSORLU)</span>
+    <!-- 2. ARAMA SONUÇLARI SAYFASI (10 Tane Site, En Baştaki HABERTÜRK) -->
+    <div id="results-view">
+        <div class="results-header">
+            <div class="results-logo" onclick="location.reload()" style="cursor: pointer;">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+            </div>
+            <div class="results-search-box">
+                <strong>yeni ceza kanunu</strong>
             </div>
         </div>
-        <nav>
-            <div class="container">
-                <ul>
-                    <li><a href="#" onclick="filterCategory('Son Dakika')">Son Dakika</a></li>
-                    <li><a href="#" onclick="filterCategory('Gündem')">Gündem</a></li>
-                    <li><a href="#" onclick="filterCategory('Ekonomi')">Ekonomi</a></li>
-                    <li><a href="#" onclick="filterCategory('Dünya')">Dünya</a></li>
-                    <li><a href="#" onclick="filterCategory('Spor')">Spor</a></li>
-                    <li><a href="#" onclick="filterCategory('Teknoloji')">Teknoloji</a></li>
-                    <li><a href="#" onclick="filterCategory('Yazarlar')">Yazarlar</a></li>
-                    <li><a href="#" onclick="filterCategory('Otomobil')">Otomobil</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <div class="container">
-        <!-- Son Dakika Kayan Duyuru Bandı -->
-        <div class="breaking-news">
-            <span class="breaking-tag">SON DAKİKA</span>
-            <span id="breaking-text">Resmi Gazete ile yayımlanan yeni düzenleme sonrasında kamuoyunda tartışmalar hız kesmeden devam ediyor.</span>
+        <div class="results-list">
+            <!-- 1. Gerçek site (Habertürk) -->
+            <div class="result-item">
+                <div class="result-url">https://www.haberturk.com › gundem › yeni-ceza-kanunu</div>
+                <a class="result-title" onclick="openHaberturk()">HABERTÜRK - Türkiye'nin En Güncel Haber Sitesi</a>
+                <div class="result-desc">Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi ve son dakika gelişmeleri Habertürk'te. Detaylar için tıklayın.</div>
+            </div>
+
+            <!-- 2. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.cezakanunubilgi.net › detaylar</div>
+                <a class="result-title" onclick="fakeAlert()">Yeni Ceza Kanunu Tam Metin ve İndir (Güncel 2026)</a>
+                <div class="result-desc">Yeni ceza kanunu maddeleri hakkında merak edilen tüm detaylar, PDF rehberler ve uzman yorumları bu sitede.</div>
+            </div>
+
+            <!-- 3. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.hukukisorular.org › adalet</div>
+                <a class="result-title" onclick="fakeAlert()">Adalet Bakanlığı Yeni Ceza Kanunu Sorgulama Ekranı</a>
+                <div class="result-desc">TC kimlik numarası ile yeni ceza kanunu kapsamındaki durumunuzu hemen sorgulayın. Güvenli resmi bilgi portalı.</div>
+            </div>
+
+            <!-- 4. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.HaberGundem24.com › guncel</div>
+                <a class="result-title" onclick="fakeAlert()">HaberGündem24 - Son Dakika Yeni Ceza Kanunu Tartışmaları</a>
+                <div class="result-desc">Meclis'ten geçen son kanun tasarısı hakkında en son dakika flaş haberler ve kulis bilgileri.</div>
+            </div>
+
+            <!-- 5. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.mevzuatipu.com › kanunlar</div>
+                <a class="result-title" onclick="fakeAlert()">Mevzuat İpuçları - Yeni Kanun Taslakları ve Analizler</a>
+                <div class="result-desc">Hukukçular için yeni ceza kanunu taslağının maddeler halinde analizi ve karşılaştırmalı tabloları.</div>
+            </div>
+
+            <!-- 6. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.cezaavukatiortakligi.com › blog</div>
+                <a class="result-title" onclick="fakeAlert()">Ceza Hukuku Blogu: Yeni Düzenleme Neler Getiriyor?</a>
+                <div class="result-desc">Uzman ceza avukatlarının kaleminden yeni kanun maddelerinin getirdiği cezai yaptırımlar ve haklar.</div>
+            </div>
+
+            <!-- 7. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.turkiyehabersitesi.net › gundem</div>
+                <a class="result-title" onclick="fakeAlert()">Türkiye Haber Sitesi - Yeni Kanun Resmi Gazete'de</a>
+                <div class="result-desc">Resmi Gazete'nin mükerrer sayısında yayımlanan yeni ceza kanunu maddelerinin tam dökümü.</div>
+            </div>
+
+            <!-- 8. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.dijitalhukuk.org › forum</div>
+                <a class="result-title" onclick="fakeAlert()">Dijital Hukuk Forumu - Yeni Kanun Hakkında Tartışmalar</a>
+                <div class="result-desc">Vatandaşların yeni cezai yaptırımlar hakkındaki soruları ve hukuk öğrencileriyle paylaşılan makaleler.</div>
+            </div>
+
+            <!-- 9. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.gundemozelarsiv.com › 2026</div>
+                <a class="result-title" onclick="fakeAlert()">Gündem Özel Arşiv - Son Kanun Değişiklikleri Özeti</a>
+                <div class="result-desc">Geçmişten günümüze ceza kanunlarında yapılan değişiklikler ve son çıkan düzenlemenin özeti.</div>
+            </div>
+
+            <!-- 10. Sahte Site -->
+            <div class="result-item">
+                <div class="result-url">https://www.internethaberanaliz.com › kanun</div>
+                <a class="result-title" onclick="fakeAlert()">İnternet Haber Analiz - Yeni Kanun Kimleri Kapsıyor?</a>
+                <div class="result-desc">Yeni ceza kanunu düzenlemesinin toplumun farklı kesimleri üzerindeki yansımaları ve uzman görüşleri.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HABERTÜRK SİTESİ (ASIL İÇERİK) -->
+    <div id="haberturk-view">
+        <!-- Çerez (Cookie) Uyarısı -->
+        <div id="cookie-banner">
+            <div class="cookie-content">
+                <strong>Çerez Bilgilendirmesi</strong>
+                <p>Size daha iyi hizmet sunabilmek, içerikleri ve reklamları kişiselleştirmek için çerezler (cookies) kullanıyoruz. Detaylı bilgi için <a href="#" onclick="openFullNews('Yasal', 'Çerez Politikası', 'Web sitemizde gezinme deneyiminizi geliştirmek amacıyla çerezler kullanılmaktadır. Çerez ayarlarınızı tarayıcınız üzerinden dilediğiniz zaman değiştirebilirsiniz.', '02 Ağustos 2026')" style="color: #ff9900; text-decoration: underline;">Çerez Politikamızı</a> inceleyebilirsiniz.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-reject" onclick="acceptCookies()">Tümünü Reddet</button>
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Kabul Et</button>
+            </div>
         </div>
 
-        <!-- Ana İçerik Yapısı -->
-        <div class="main-layout">
-            
-            <main class="content-left">
-                
-                <!-- 1. Senin İstediğin Özel Haber -->
-                <div class="main-card" onclick="openFullNews('Gündem Özel', 'GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ', 'Ankara — Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.\n\nYetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek.\n\nHukukçular ve uzmanlar, internet ortamındaki dijital içerik takibinin bu kanunla birlikte üst seviyeye çıkarılacağını, vatandaşların özellikle sosyal medya ve paylaşılan video linkleri konusunda son derece temkinli olmaları gerektiğini vurguluyor.', '02 Ağustos 2026 - 09:03')">
-                    <span class="badge">Gündem Özel</span>
-                    <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
-                    <p class="news-meta">
-                        <span>Yayınlanma: 02 Ağustos 2026 - 09:03</span>
-                        <span>Kaynak: HABERTÜRK Ankara</span>
-                    </p>
-                    <p><strong>Ankara —</strong> Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.</p>
-                    <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
+        <!-- Üst Bilgi Çubuğu -->
+        <div class="top-bar">
+            <div class="top-bar-container">
+                <div class="top-bar-left">
+                    <span>Ankara 21°C</span> ☀️ Son Dakika Gelişmeleri
                 </div>
-
-                <!-- Diğer Haberler Grid Yapısı -->
-                <div class="news-grid">
-                    
-                    <div class="card" onclick="openFullNews('Ekonomi', 'Merkez Bankası\'ndan Yeni Faiz Kararı Açıklandı', 'Ekonomi yönetimi ve Para Politikası Kurulu tarafından alınan yeni kararlar piyasalarda büyük bir hareketliliğe neden oldu. Uzun süredir merakla beklenen faiz oranı piyasa beklentileri doğrultusunda şekillendi.\n\nMerkez Bankası\'ndan yapılan resmi açıklamada, enflasyonla mücadele kararlılığının sürdüğü ve atılan sıkılaştırıcı adımların meyvesini vermeye başladığı ifade edildi. Kararın ardından döviz kurlarında ve altın fiyatlarında anlık dalgalanmalar gözlemlenirken, serbest piyasa yatırımcıları güncel verileri yakından takip etmeye devam ediyor.', '02 Ağustos 2026')">
-                        <span class="badge">Ekonomi</span>
-                        <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
-                        <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları takip ediyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
-                    </div>
-
-                    <div class="card" onclick="openFullNews('Teknoloji', 'Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu', 'Türkiye\'nin gururu yerli elektrikli otomobil markası TOGG, kullanıcılarından gelen geri bildirimler doğrultusunda yeni donanım paketlerini ve güncellenmiş fiyat listesini resmen duyurdu.\n\nYapılan geliştirmeler kapsamında batarya verimliliği artırılırken, menzil kapasitesinde de önemli bir artış sağlandı. Ayrıca yeni eklenen mat renk seçenekleri ve gelişmiş otonom sürüş asistanları şimdiden binlerce kişinin ön sipariş kuyruğuna girmesine yol açtı.', '02 Ağustos 2026')">
-                        <span class="badge">Teknoloji</span>
-                        <h2>Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu</h2>
-                        <p>Türkiye'nin elektrikli otomobili TOGG için yeni renk seçenekleri ve artırılmış menzil kapasitesi açıklandı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Otomobil</span></div>
-                    </div>
-
-                    <div class="in-content-ad" onclick="openFullNews('Sponsorlu İlan', '10 Saniyede Zengin Olun!', 'Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sistemimizin sırrını hemen öğrenin! Kontenjanlar sınırlıdır.', '02 Ağustos 2026')">
-                        <h3>📢 SPONSORLU İLAN: 10 Saniyede Zengin Olun!</h3>
-                        <p>Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sırrı öğrenin!</p>
-                    </div>
-
-                    <div class="card" onclick="openFullNews('Yaşam', 'İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve marmara bölgesini etkisi altına alması beklenen şiddetli sağanak yağış ve fırtına için sarı kodlu uyarı yayınladı.\n\nYetkililer, pazar günü etkisini artırması beklenen rüzgar nedeniyle çatı uçmaları, ağaç devrilmeleri ve trafikte yaşanabilecek aksamalara karşı vatandaşları tedbirli olmaya çağırdı. Belediye ekipleri olası su baskınlarına karşı teyakkuza geçirildi.', '02 Ağustos 2026')">
-                        <span class="badge">Yaşam</span>
-                        <h2>İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı</h2>
-                        <p>İstanbul'da haft sonu beklenen şiddetli sağanak yağış ve fırtına nedeniyle yetkililer uyardı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
-                    </div>
-
-                    <div class="card" onclick="openFullNews('Spor', 'Süper Lig\'de Derbi Heyecanı: Muhtemel 11\'ler Belli Oldu', 'Trendyol Süper Lig\'de futbolseverlerin nefesini tutarak bekleyeceği haftanın maçı için geri sayım başladı. Zirve yarışını doğrudan etkileyecek dev derbide iki takımın teknik direktörleri de son taktik idmanlarını tamamladı.\n\nKritik karşılaşma öncesinde sakat oyuncuların son durumları netleşirken, kulislerde konuşulan muhtemel 11\'ler taraftarlar arasında büyük heyecan yarattı. Maçın hakemi ve VAR odasındaki isimler de federasyon tarafından açıklandı.', '02 Ağustos 2026')">
-                        <span class="badge">Spor</span>
-                        <h2>Süper Lig'de Derbi Heyecanı: Muhtemel 11'ler Belli Oldu</h2>
-                        <p>Zirveyi ilgilendiren dev karşılaşmada teknik direktörlerin sahaya süreceği kadrolar şekillendi.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
-                    </div>
-
+                <div class="top-bar-right" id="current-date">
+                    Pazar, 2 Ağustos 2026
                 </div>
+            </div>
+        </div>
 
-            </main>
-
-            <aside class="content-right">
-                <div class="sidebar-section">
-                    <div class="sidebar-title">Günün En Çok Okunanları</div>
-                    <ul class="sidebar-list">
-                        <li>
-                            <span class="num">1</span>
-                            <a onclick="openFullNews('Teknoloji', 'Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi', 'Yerli otomobil TOGG, yeni donanım paketleri ve artırılmış menzil seçenekleriyle ön sipariş sürecini hızlandırdı.', '02 Ağustos 2026')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi duyuruldu</a>
-                        </li>
-                        <li>
-                            <span class="num">2</span>
-                            <a onclick="openFullNews('Yaşam', 'İstanbul için meteorolojiden sarı kodlu fırtına uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve çevresinde etkili olacak kuvvetli fırtına ve sağanak yağış nedeniyle vatandaşların tedbirli olmasını istedi.', '02 Ağustos 2026')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
-                        </li>
+        <!-- Ana Başlık ve Reklam Alanı -->
+        <header>
+            <div class="container header-main">
+                <div class="logo" onclick="location.reload();">HABERTÜRK</div>
+                <div class="header-ad" onclick="openFullNews('Sponsorlu Kampanya', 'iPhone 17 Pro Çekilişi', 'Tebrikler! 1 Milyonuncu Ziyaretçi Oldunuz! Ödülünüzü almak için formu doldurun.', '02 Ağustos 2026')">
+                    🎉 GÖZLERİNİZE İNANAMAYACAKSINIZ! 
+                    <span>Tıkla ve iPhone 17 Pro Kazan! (SPONSORLU)</span>
+                </div>
+            </div>
+            <nav>
+                <div class="container">
+                    <ul>
+                        <li><a href="#" onclick="filterCategory('Son Dakika')">Son Dakika</a></li>
+                        <li><a href="#" onclick="filterCategory('Gündem')">Gündem</a></li>
+                        <li><a href="#" onclick="filterCategory('Ekonomi')">Ekonomi</a></li>
+                        <li><a href="#" onclick="filterCategory('Dünya')">Dünya</a></li>
+                        <li><a href="#" onclick="filterCategory('Spor')">Spor</a></li>
+                        <li><a href="#" onclick="filterCategory('Teknoloji')">Teknoloji</a></li>
+                        <li><a href="#" onclick="filterCategory('Yazarlar')">Yazarlar</a></li>
+                        <li><a href="#" onclick="filterCategory('Otomobil')">Otomobil</a></li>
                     </ul>
                 </div>
-            </aside>
+            </nav>
+        </header>
 
+        <div class="container">
+            <!-- Son Dakika Kayan Duyuru Bandı -->
+            <div class="breaking-news">
+                <span class="breaking-tag">SON DAKİKA</span>
+                <span id="breaking-text">Resmi Gazete ile yayımlanan yeni düzenleme sonrasında kamuoyunda tartışmalar hız kesmeden devam ediyor.</span>
+            </div>
+
+            <!-- Ana İçerik Yapısı -->
+            <div class="main-layout">
+                
+                <main class="content-left">
+                    
+                    <!-- 1. Senin İstediğin Özel Haber -->
+                    <div class="main-card" onclick="openFullNews('Gündem Özel', 'GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ', 'Ankara — Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.\n\nYetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek.\n\nHukukçular ve uzmanlar, internet ortamındaki dijital içerik takibinin bu kanunla birlikte üst seviyeye çıkarılacağını, vatandaşların özellikle sosyal medya ve paylaşılan video linkleri konusunda son derece temkinli olmaları gerektiğini vurguluyor.', '02 Ağustos 2026 - 09:03')">
+                        <span class="badge">Gündem Özel</span>
+                        <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
+                        <p class="news-meta">
+                            <span>Yayınlanma: 02 Ağustos 2026 - 09:03</span>
+                            <span>Kaynak: HABERTÜRK Ankara</span>
+                        </p>
+                        <p><strong>Ankara —</strong> Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.</p>
+                        <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
+                    </div>
+
+                    <!-- Diğer Haberler Grid Yapısı -->
+                    <div class="news-grid">
+                        
+                        <div class="card" onclick="openFullNews('Ekonomi', 'Merkez Bankası\'ndan Yeni Faiz Kararı Açıklandı', 'Ekonomi yönetimi ve Para Politikası Kurulu tarafından alınan yeni kararlar piyasalarda büyük bir hareketliliğe neden oldu. Uzun süredir merakla beklenen faiz oranı piyasa beklentileri doğrultusunda şekillendi.\n\nMerkez Bankası\'ndan yapılan resmi açıklamada, enflasyonla mücadele kararlılığının sürdüğü ve atılan sıkılaştırıcı adımların meyvesini vermeye başladığı ifade edildi. Kararın ardından döviz kurlarında ve altın fiyatlarında anlık dalgalanmalar gözlemlenirken, serbest piyasa yatırımcıları güncel verileri yakından takip etmeye devam ediyor.', '02 Ağustos 2026')">
+                            <span class="badge">Ekonomi</span>
+                            <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
+                            <p>Ekonomi yönetiminin attığı adımlar piyasalarda hareketliliğe neden olurken, döviz ve altın yatırımcıları yeni kararları takip ediyor.</p>
+                            <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
+                        </div>
+
+                        <div class="card" onclick="openFullNews('Teknoloji', 'Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu', 'Türkiye\'nin gururu yerli elektrikli otomobil markası TOGG, kullanıcılarından gelen geri bildirimler doğrultusunda yeni donanım paketlerini ve güncellenmiş fiyat listesini resmen duyurdu.\n\nYapılan geliştirmeler kapsamında batarya verimliliği artırılırken, menzil kapasitesinde de önemli bir artış sağlandı. Ayrıca yeni eklenen mat renk seçenekleri ve gelişmiş otonom sürüş asistanları şimdiden binlerce kişinin ön sipariş kuyruğuna girmesine yol açtı.', '02 Ağustos 2026')">
+                            <span class="badge">Teknoloji</span>
+                            <h2>Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu</h2>
+                            <p>Türkiye'nin elektrikli otomobili TOGG için yeni renk seçenekleri ve artırılmış menzil kapasitesi açıklandı.</p>
+                            <div class="news-meta"><span>02.08.2026</span><span>Otomobil</span></div>
+                        </div>
+
+                        <div class="in-content-ad" onclick="openFullNews('Sponsorlu İlan', '10 Saniyede Zengin Olun!', 'Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sistemimizin sırrını hemen öğrenin! Kontenjanlar sınırlıdır.', '02 Ağustos 2026')">
+                            <h3>📢 SPONSORLU İLAN: 10 Saniyede Zengin Olun!</h3>
+                            <p>Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sırrı öğrenin!</p>
+                        </div>
+
+                        <div class="card" onclick="openFullNews('Yaşam', 'İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve marmara bölgesini etkisi altına alması beklenen şiddetli sağanak yağış ve fırtına için sarı kodlu uyarı yayınladı.\n\nYetkililer, pazar günü etkisini artırması beklenen rüzgar nedeniyle çatı uçmaları, ağaç devrilmeleri ve trafikte yaşanabilecek aksamalara karşı vatandaşları tedbirli olmaya çağırdı. Belediye ekipleri olası su baskınlarına karşı teyakkuza geçirildi.', '02 Ağustos 2026')">
+                            <span class="badge">Yaşam</span>
+                            <h2>İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı</h2>
+                            <p>İstanbul'da haft sonu beklenen şiddetli sağanak yağış ve fırtına nedeniyle yetkililer uyardı.</p>
+                            <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
+                        </div>
+
+                        <div class="card" onclick="openFullNews('Spor', 'Süper Lig\'de Derbi Heyecanı: Muhtemel 11\'ler Belli Oldu', 'Trendyol Süper Lig\'de futbolseverlerin nefesini tutarak bekleyeceği haftanın maçı için geri sayım başladı. Zirve yarışını doğrudan etkileyecek dev derbide iki takımın teknik direktörleri de son taktik idmanlarını tamamladı.\n\nKritik karşılaşma öncesinde sakat oyuncuların son durumları netleşirken, kulislerde konuşulan muhtemel 11\'ler taraftarlar arasında büyük heyecan yarattı. Maçın hakemi ve VAR odasındaki isimler de federasyon tarafından açıklandı.', '02 Ağustos 2026')">
+                            <span class="badge">Spor</span>
+                            <h2>Süper Lig'de Derbi Heyecanı: Muhtemel 11'ler Belli Oldu</h2>
+                            <p>Zirveyi ilgilendiren dev karşılaşmada teknik direktörlerin sahaya süreceği kadrolar şekillendi.</p>
+                            <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
+                        </div>
+
+                    </div>
+
+                </main>
+
+                <aside class="content-right">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Günün En Çok Okunanları</div>
+                        <ul class="sidebar-list">
+                            <li>
+                                <span class="num">1</span>
+                                <a onclick="openFullNews('Teknoloji', 'Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi', 'Yerli otomobil TOGG, yeni donanım paketleri ve artırılmış menzil seçenekleriyle ön sipariş sürecini hızlandırdı.', '02 Ağustos 2026')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi duyuruldu</a>
+                            </li>
+                            <li>
+                                <span class="num">2</span>
+                                <a onclick="openFullNews('Yaşam', 'İstanbul için meteorolojiden sarı kodlu fırtına uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve çevresinde etkili olacak kuvvetli fırtına ve sağanak yağış nedeniyle vatandaşların tedbirli olmasını istedi.', '02 Ağustos 2026')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
         </div>
     </div>
 
@@ -680,6 +937,42 @@
     </footer>
 
     <script>
+        // Tam ekran fonksiyonu
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Tam ekran modu başlatılamadı: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Arama yapma butonu veya enter tuşu
+        function performSearch() {
+            document.getElementById('search-view').style.display = 'none';
+            document.getElementById('results-view').style.display = 'block';
+        }
+
+        document.getElementById('search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Sahte sitelere tıklanınca uyarı verme
+        function fakeAlert() {
+            alert("Bu site kurgusal bir arama sonucudur. Lütfen en baştaki HABERTÜRK sitesine tıklayınız.");
+        }
+
+        // Habertürk sitesine geçiş
+        function openHaberturk() {
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('haberturk-view').style.display = 'block';
+        }
+
         // Çerezi kabul etme veya reddetme fonksiyonu
         function acceptCookies() {
             document.getElementById('cookie-banner').style.display = 'none';
