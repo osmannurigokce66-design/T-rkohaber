@@ -168,7 +168,6 @@
             }
         }
 
-        /* En üstteki senin haberin (Büyük Manşet - Hiç Değişmedi) */
         .main-card {
             background: var(--card-bg);
             padding: 30px;
@@ -194,7 +193,6 @@
             line-height: 1.7;
         }
 
-        /* Yan yana grid yapısı için haberler */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -256,7 +254,6 @@
             justify-content: space-between;
         }
 
-        /* Sahte Reklam Kutusu İçerik Arasında */
         .in-content-ad {
             background: #fff8f8;
             border: 2px dashed var(--primary-color);
@@ -336,7 +333,67 @@
             color: var(--primary-color);
         }
 
-        /* Modal / Pop-up Tasarımı (Orta Uzunlukta Detaylı Haber Metni İçin) */
+        /* Çerez (Cookie) Banner Tasarımı */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 20px;
+            z-index: 3000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .cookie-content {
+            max-width: 800px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cookie-content p {
+            color: #ccc;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .cookie-accept {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .cookie-accept:hover {
+            opacity: 0.9;
+        }
+
+        .cookie-reject {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .cookie-reject:hover {
+            background-color: #555;
+        }
+
+        /* Modal / Pop-up Tasarımı */
         .modal {
             display: none;
             position: fixed;
@@ -464,6 +521,18 @@
 </head>
 <body>
 
+    <!-- Çerez (Cookie) Uyarısı -->
+    <div id="cookie-banner">
+        <div class="cookie-content">
+            <strong>Çerez Bilgilendirmesi</strong>
+            <p>Size daha iyi hizmet sunabilmek, içerikleri ve reklamları kişiselleştirmek için çerezler (cookies) kullanıyoruz. Detaylı bilgi için <a href="#" onclick="openFullNews('Yasal', 'Çerez Politikası', 'Web sitemizde gezinme deneyiminizi geliştirmek amacıyla çerezler kullanılmaktadır. Çerez ayarlarınızı tarayıcınız üzerinden dilediğiniz zaman değiştirebilirsiniz.', '02 Ağustos 2026')" style="color: #ff9900; text-decoration: underline;">Çerez Politikamızı</a> inceleyebilirsiniz.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-reject" onclick="acceptCookies()">Tümünü Reddet</button>
+            <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Kabul Et</button>
+        </div>
+    </div>
+
     <!-- Üst Bilgi Çubuğu -->
     <div class="top-bar">
         <div class="top-bar-container">
@@ -511,10 +580,9 @@
         <!-- Ana İçerik Yapısı -->
         <div class="main-layout">
             
-            <!-- Sol Taraf: Senin Haberir ve Yan Yana 20+ Haber -->
             <main class="content-left">
                 
-                <!-- 1. Senin İstediğin Özel Haber (Aynı Kaldı ve Tam Genişlikte) -->
+                <!-- 1. Senin İstediğin Özel Haber -->
                 <div class="main-card" onclick="openFullNews('Gündem Özel', 'GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ', 'Ankara — Devlet tarafından Resmi Gazete ile yayımlanan yeni ceza düzenlemesi kamuoyunda geniş yankı uyandırdı. Yapılan kapsamlı değişiklikler çerçevesinde, çoğu vatandaşı şaşırtan cinsel içerikli video izlenimine ve yayılmasına yönelik çok ciddi cezai yaptırımlar getirildiği duyuruldu.\n\nYetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek.\n\nHukukçular ve uzmanlar, internet ortamındaki dijital içerik takibinin bu kanunla birlikte üst seviyeye çıkarılacağını, vatandaşların özellikle sosyal medya ve paylaşılan video linkleri konusunda son derece temkinli olmaları gerektiğini vurguluyor.', '02 Ağustos 2026 - 09:03')">
                     <span class="badge">Gündem Özel</span>
                     <h1>GÜNDEM ÖZEL: DEVLETTEN YENİ CEZA KANUNU DÜZENLEMESİ</h1>
@@ -526,10 +594,9 @@
                     <p>Yetkililerin paylaştığı bilgilere göre yeni düzenlemede vatandaşlara bir esneklik de tanındı. Suç kapsamına giren bu tür durumlarda, af ve hukuki kolaylık sağlanması amacıyla belirli bir kefalet bedeli ödenebilecek. Belirtilen şartların yerine getirilmesi durumunda ise ilgili ceza adli sicil kaydına işlenmeyecek. Hukukçular, vatandaşların yeni kanun maddeleri konusunda dikkatli olmaları gerektiği konusunda uyarıda bulundu.</p>
                 </div>
 
-                <!-- Diğer 20 Haber Yan Yana (Grid) Diziliyor -->
+                <!-- Diğer Haberler Grid Yapısı -->
                 <div class="news-grid">
                     
-                    <!-- 2. Haber -->
                     <div class="card" onclick="openFullNews('Ekonomi', 'Merkez Bankası\'ndan Yeni Faiz Kararı Açıklandı', 'Ekonomi yönetimi ve Para Politikası Kurulu tarafından alınan yeni kararlar piyasalarda büyük bir hareketliliğe neden oldu. Uzun süredir merakla beklenen faiz oranı piyasa beklentileri doğrultusunda şekillendi.\n\nMerkez Bankası\'ndan yapılan resmi açıklamada, enflasyonla mücadele kararlılığının sürdüğü ve atılan sıkılaştırıcı adımların meyvesini vermeye başladığı ifade edildi. Kararın ardından döviz kurlarında ve altın fiyatlarında anlık dalgalanmalar gözlemlenirken, serbest piyasa yatırımcıları güncel verileri yakından takip etmeye devam ediyor.', '02 Ağustos 2026')">
                         <span class="badge">Ekonomi</span>
                         <h2>Merkez Bankası'ndan Yeni Faiz Kararı Açıklandı</h2>
@@ -537,7 +604,6 @@
                         <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
                     </div>
 
-                    <!-- 3. Haber -->
                     <div class="card" onclick="openFullNews('Teknoloji', 'Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu', 'Türkiye\'nin gururu yerli elektrikli otomobil markası TOGG, kullanıcılarından gelen geri bildirimler doğrultusunda yeni donanım paketlerini ve güncellenmiş fiyat listesini resmen duyurdu.\n\nYapılan geliştirmeler kapsamında batarya verimliliği artırılırken, menzil kapasitesinde de önemli bir artış sağlandı. Ayrıca yeni eklenen mat renk seçenekleri ve gelişmiş otonom sürüş asistanları şimdiden binlerce kişinin ön sipariş kuyruğuna girmesine yol açtı.', '02 Ağustos 2026')">
                         <span class="badge">Teknoloji</span>
                         <h2>Yerli Otomobil TOGG İçin Yeni Donanım Paketleri Duyuruldu</h2>
@@ -545,13 +611,11 @@
                         <div class="news-meta"><span>02.08.2026</span><span>Otomobil</span></div>
                     </div>
 
-                    <!-- SAHTE REKLAM KUTUSU 1 -->
                     <div class="in-content-ad" onclick="openFullNews('Sponsorlu İlan', '10 Saniyede Zengin Olun!', 'Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sistemimizin sırrını hemen öğrenin! Kontenjanlar sınırlıdır.', '02 Ağustos 2026')">
                         <h3>📢 SPONSORLU İLAN: 10 Saniyede Zengin Olun!</h3>
                         <p>Evden çalışarak günlük binlerce lira kazanmak ister misiniz? Tıklayın ve sırrı öğrenin!</p>
                     </div>
 
-                    <!-- 4. Haber -->
                     <div class="card" onclick="openFullNews('Yaşam', 'İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve marmara bölgesini etkisi altına alması beklenen şiddetli sağanak yağış ve fırtına için sarı kodlu uyarı yayınladı.\n\nYetkililer, pazar günü etkisini artırması beklenen rüzgar nedeniyle çatı uçmaları, ağaç devrilmeleri ve trafikte yaşanabilecek aksamalara karşı vatandaşları tedbirli olmaya çağırdı. Belediye ekipleri olası su baskınlarına karşı teyakkuza geçirildi.', '02 Ağustos 2026')">
                         <span class="badge">Yaşam</span>
                         <h2>İstanbul İçin Meteorolojiden Sarı Kodlu Fırtına Uyarısı</h2>
@@ -559,7 +623,6 @@
                         <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
                     </div>
 
-                    <!-- 5. Haber -->
                     <div class="card" onclick="openFullNews('Spor', 'Süper Lig\'de Derbi Heyecanı: Muhtemel 11\'ler Belli Oldu', 'Trendyol Süper Lig\'de futbolseverlerin nefesini tutarak bekleyeceği haftanın maçı için geri sayım başladı. Zirve yarışını doğrudan etkileyecek dev derbide iki takımın teknik direktörleri de son taktik idmanlarını tamamladı.\n\nKritik karşılaşma öncesinde sakat oyuncuların son durumları netleşirken, kulislerde konuşulan muhtemel 11\'ler taraftarlar arasında büyük heyecan yarattı. Maçın hakemi ve VAR odasındaki isimler de federasyon tarafından açıklandı.', '02 Ağustos 2026')">
                         <span class="badge">Spor</span>
                         <h2>Süper Lig'de Derbi Heyecanı: Muhtemel 11'ler Belli Oldu</h2>
@@ -567,171 +630,21 @@
                         <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
                     </div>
 
-                    <!-- 6. Haber -->
-                    <div class="card" onclick="openFullNews('Ekonomi', 'Borsada Rekor Kıran Hisseler Yatırımcısının Yüzünü Güldürdü', 'Borsa İstanbul BIST 100 endeksi, haftanın ilk işlem gününde sergilediği güçlü performansla tüm zamanların günlük işlem hacmi rekoruna yaklaştı.\n\nÖzellikle sanayi, holding ve teknoloji sektörü hisselerindeki alım ağırlıklı seyir endeksin yukarı yönlü hareketini destekledi. Uzmanlar, portföy çeşitlendirmesi yapan orta vadeli yatırımcıların bu dönemde kazançlı çıktığını belirtiyor.', '02 Ağustos 2026')">
-                        <span class="badge">Borsa</span>
-                        <h2>Borsada Rekor Kıran Hisseler Yatırımcısının Yüzünü Güldürdü</h2>
-                        <p>BIST 100 endeksi haftanın ilk işlem gününde güçlü bir yükseliş ivmesi yakaladı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
-                    </div>
-
-                    <!-- 7. Haber -->
-                    <div class="card" onclick="openFullNews('Teknoloji', 'Yapay Zeka Sektöründe Deprem: Yerli Model Tanıtıldı', 'Türkiye\'nin teknoloji hamleleri kapsamında geliştirilen yeni nesil yerli yapay zeka dil modeli, düzenlenen basın toplantısıyla dünyaya tanıtıldı.\n\nKüresel rakipleriyle boy ölçüşebilecek kapasitede olduğu belirtilen yazılım; Türkçe doğal dil işleme, veri analizi ve siber güvenlik alanlarında üstün başarılar sergiliyor. Projede görev alan Türk mühendisler uluslararası alanda büyük takdir topladı.', '02 Ağustos 2026')">
-                        <span class="badge">Teknoloji</span>
-                        <h2>Yapay Zeka Sektöründe Deprem: Yerli Model Tanıtıldı</h2>
-                        <p>Dil işleme ve veri analizi konusunda küresel rakiplerine meydan okuyan yerli yazılım tanıtıldı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Teknoloji</span></div>
-                    </div>
-
-                    <!-- 8. Haber -->
-                    <div class="card" onclick="openFullNews('Spor', 'Milli Takım\'dan Kritik Zafer: Dünya Kupası Yolunda Dev Adım', 'A Millî Futbol Takımımız, deplasmanda konuk olduğu zorlu rakibi karşısında üstün bir futbol sergileyerek sahadan 3 puanla ayrılmayı başardı.\n\nMaç boyunca taraftar baskısına rağmen disiplinden kopmayan millilerimiz, attığı kritik gollerle grubundaki liderlik koltuğunu sağlama aldı. Teknik direktör ve futbolcular maç sonu büyük sevinç yaşadı.', '02 Ağustos 2026')">
-                        <span class="badge">Spor</span>
-                        <h2>Milli Takım'dan Kritik Zafer: Dünya Kupası Yolunda Dev Adım</h2>
-                        <p>Zorlu deplasman karşılaşmasından 3 puanla ayrılan ekibimiz gruptaki liderliğini perçinledi.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Spor</span></div>
-                    </div>
-
-                    <!-- 9. Haber -->
-                    <div class="card" onclick="openFullNews('Gündem', 'Emekli ve Memur Maaşlarında Yeni Düzenleme Sinyali', 'Milyonlarca vatandaşı yakından ilgilendiren ekonomik refah paketinde çalışmalar son aşamaya geldi. Kabine toplantısının ardından yapılacak açıklamalar merakla bekleniyor.\n\nEn düşük emekli maaşı ve memur maaş katsayılarındaki olası iyileştirmeler üzerine kulislerde farklı formüller konuşuluyor. Hükümet yetkilileri, enflasyona karşı dar gelirlileri koruyacak adımların atılacağını belirtti.', '02 Ağustos 2026')">
-                        <span class="badge">Gündem</span>
-                        <h2>Emekli ve Memur Maaşlarında Yeni Düzenleme Sinyali</h2>
-                        <p>Milyonları ilgilendiren ekonomik paket ile ilgili kabine toplantısı kararları bekleniyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Gündem</span></div>
-                    </div>
-
-                    <!-- SAHTE REKLAM KUTUSU 2 -->
-                    <div class="in-content-ad" onclick="openFullNews('Sponsorlu Ürün', 'Bu Çay Yaşlanmayı Durduruyor!', 'Doktorların gizli tuttuğu mucizevi bitkisel formül nihayet açıklandı. 1 haftada gençleşmek ve kilo vermek için hemen tıklayın!', '02 Ağustos 2026')">
-                        <h3>⚡ DİKKAT: Bu Çay Yaşlanmayı Durduruyor!</h3>
-                        <p>Doktorların gizli tuttuğu o formül nihayet açıklandı. Detaylar için tıklayın!</p>
-                    </div>
-
-                    <!-- 10. Haber -->
-                    <div class="card" onclick="openFullNews('Bilim', 'Astronomlar Dünyaya Benzer Yeni Bir Gezegen Keşfetti', 'James Webb Uzay Teleskobu verilerini inceleyen uluslararası bir astronom ekibi, Dünya\'ya oldukça benzeyen yeni bir ötegezegen keşfetti.\n\nYaşanabilir bölgede yer aldığı tespit edilen gezegenin atmosferinde su buharı izlerine rastlanmış olabileceği açıklandı. Bilim insanları bu keşfin uzayda yaşam arayışları adına bir dönüm noktası olduğunu ifade ediyor.', '02 Ağustos 2026')">
-                        <span class="badge">Bilim</span>
-                        <h2>Astronomlar Dünyaya Benzer Yeni Bir Gezegen Keşfetti</h2>
-                        <p>James Webb teleskobu kullanılarak yapılan gözlemlerde su barındırma ihtimali olan yer bulundu.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Bilim</span></div>
-                    </div>
-
-                    <!-- 11. Haber -->
-                    <div class="card" onclick="openFullNews('Kültür-Sanat', 'Sinema Dünyasında Yılın Beklenen Filmi Vizyona Giriyor', 'Uluslararası film festivallerinde eleştirmenlerden tam not alan ve pek çok ödül toplayan yerli yapım sinemaseverlerle buluşuyor.\n\nDerin senaryosu ve usta oyuncu kadrosuyla dikkat çeken yapımın gişede rekor kırması bekleniyor. Yönetmen ve oyuncular galada izleyicilerin sorularını yanıtladı.', '02 Ağustos 2026')">
-                        <span class="badge">Kültür-Sanat</span>
-                        <h2>Sinema Dünyasında Yılın Beklenen Filmi Vizyona Giriyor</h2>
-                        <p>Uluslararası festivallerde ödül toplayan yerli yapım sinemaseverlerden tam not aldı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
-                    </div>
-
-                    <!-- 12. Haber -->
-                    <div class="card" onclick="openFullNews('Emlak', 'Konut Kredilerinde Yeni Faiz İndirimi Beklentisi', 'Ev sahibi olma hayali kuran vatandaşlar bankaların konut kredisi faiz oranlarındaki olası indirimleri yakından takip ediyor.\n\nSektör temsilcileri, önümüzdeki dönemde atılması muhtemel parasal gevşeme adımlarının gayrimenkul piyasasına can suyu olacağını ve satışların hız kazanacağını öngörüyor.', '02 Ağustos 2026')">
-                        <span class="badge">Emlak</span>
-                        <h2>Konut Kredilerinde Yeni Faiz İndirimi Beklentisi</h2>
-                        <p>Ev sahibi olmak isteyenler için bankaların sunduğu yeni finansman paketleri açıklandı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
-                    </div>
-
-                    <!-- 13. Haber -->
-                    <div class="card" onclick="openFullNews('Sağlık', 'Uzmanlardan Sonbahar Öncesi Kritik Grip Uyarısı', 'Mevsim geçişlerinin yaşandığı bu günlerde uzmanlar, artan üst solunum yolu enfeksiyonlarına karşı vatandaşları uyardı.\n\nBağışıklık sistemini güçlü tutmanın yolları anlatılırken, özellikle risk grubundaki yaşlıların ve kronik rahatsızlığı olanların aşılarını zamanında yaptırması gerektiği vurgulandı.', '02 Ağustos 2026')">
-                        <span class="badge">Sağlık</span>
-                        <h2>Uzmanlardan Sonbahar Öncesi Kritik Grip Uyarısı</h2>
-                        <p>Mevsim geçişlerinde artış gösteren üst solunum yolu enfeksiyonlarına karşı önlemler.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Sağlık</span></div>
-                    </div>
-
-                    <!-- 14. Haber -->
-                    <div class="card" onclick="openFullNews('Ekonomi', 'E-Ticaret Sektöründe İşlem Hacmi Katlanarak Artıyor', 'Dijitalleşme trendlerinin hız kazandığı günümüzde online alışveriş platformlarındaki toplam ciro rekor seviyelere ulaştı.\n\nÖzellikle güvenli ödeme sistemleri ve hızlı teslimat ağlarının gelişmesi tüketicilerin internetten alışveriş eğilimini artırırken, KOBİ\'ler de e-ihracat odaklı büyüme kaydediyor.', '02 Ağustos 2026')">
-                        <span class="badge">Ekonomi</span>
-                        <h2>E-Ticaret Sektöründe İşlem Hacmi Katlanarak Artıyor</h2>
-                        <p>Dijital alışveriş alışkanlıklarının değişmesiyle birlikte pazar yerlerindeki ciro arttı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
-                    </div>
-
-                    <!-- 15. Haber -->
-                    <div class="card" onclick="openFullNews('Eğitim', 'Okullarda Yeni Eğitim-Öğretim Yılı Müfredatı Netleşti', 'Milli Eğitim Bakanlığı tarafından uzun süredir üzerinde çalışılan yeni nesil müfredat modeli yeni sezonda kademeli olarak uygulanmaya başlanıyor.\n\nÖğrencilerin analitik düşünme ve pratik becerilerini geliştirmeyi hedefleyen ders içerikleri öğretmenlere tanıtıldı. Kitap basım ve dağıtım süreçlerinin tamamlandığı bildirildi.', '02 Ağustos 2026')">
-                        <span class="badge">Eğitim</span>
-                        <h2>Okullarda Yeni Eğitim-Öğretim Yılı Müfredatı Netleşti</h2>
-                        <p>Milli Eğitim Bakanlığı tarafından hazırlanan yeni nesil ders içerikleri uygulanıyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Eğitim</span></div>
-                    </div>
-
-                    <!-- 16. Haber -->
-                    <div class="card" onclick="openFullNews('Turizm', 'Yaz Sezonunda Turizm Rekoru: Otellerde Doluluk Oranı %95', 'Türkiye\'nin turizm cenneti olan sahil bölgeleri, yaz sezonu boyunca yerli ve yabancı turist akınına uğradı.\n\nBirçok otelde doluluk oranlarının tam kapasiteye ulaştığı, turizm gelirlerinin geçen yıla oranla büyük bir artış kaydettiği açıklandı. Sektör temsilcileri sezonun sonbahar aylarında da uzayacağını öngörüyor.', '02 Ağustos 2026')">
-                        <span class="badge">Turizm</span>
-                        <h2>Yaz Sezonunda Turizm Rekoru: Otellerde Doluluk Oranı %95</h2>
-                        <p>Gözde sahil beldelerinde yaz sezonu boyunca tüm tesisler tam kapasite hizmet veriyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
-                    </div>
-
-                    <!-- 17. Haber -->
-                    <div class="card" onclick="openFullNews('Ekonomi', 'KOBİ ve Girişimcilere 1 Milyon TL\'ye Kadar Hibe Desteği', 'Sanayi ve Teknoloji Bakanlığı ile KOSGEB iş birliğinde yürütülen yeni girişimcilik destek programı resmen duyuruldu.\n\nTeknoloji tabanlı projeler geliştiren yeni kurulan işletmelere 1 milyon TL\'ye kadar geri ödemesiz hibe ve faizsiz kredi desteği sağlanacağı açıklandı. Başvuruların dijital ortamdan alınacağı belirtildi.', '02 Ağustos 2026')">
-                        <span class="badge">Girişim</span>
-                        <h2>KOBİ ve Girişimcilere 1 Milyon TL'ye Kadar Hibe Desteği</h2>
-                        <p>Sanayi ve Teknoloji Bakanlığı tarafından yeni bir hibe programı başlatıldı.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Ekonomi</span></div>
-                    </div>
-
-                    <!-- 18. Haber -->
-                    <div class="card" onclick="openFullNews('Teknoloji', 'Siber Güvenlik Uzmanlarından "Sahte SMS" Uyarısı', 'Dolandırıcıların yeni yöntemleri hakkında siber güvenlik birimleri kritik uyarılarda bulundu. Vatandaşların cep telefonlarına gönderilen sahte kargo ve icra takibi mesajlarına karşı dikkatli olması istendi.\n\nUzmanlar, bilinmeyen linklere asla tıklanmaması ve kişisel bilgilerin paylaşılmaması gerektiğini bir kez daha hatırlattı.', '02 Ağustos 2026')">
-                        <span class="badge">Teknoloji</span>
-                        <h2>Siber Güvenlik Uzmanlarından "Sahte SMS" Uyarısı</h2>
-                        <p>Vatandaşların telefonlarına gelen sahte kargo bildirimleri üzerinden dolandırıcılık artıyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Teknoloji</span></div>
-                    </div>
-
-                    <!-- 19. Haber -->
-                    <div class="card" onclick="openFullNews('Ulaşım', 'Uluslararası Uçuşlarda Yeni Rotalar ve Seferler Başlıyor', 'Türk Hava Yolları başta olmak üzere ülkemizin önde gelen hava yolu şirketleri, kış tarifesi kapsamında uçuş ağını genişletiyor.\n\nDünya genelinde yeni turizm merkezlerine direkt seferlerin başlatılacağı, bilet satışlarının ise bugünden itibaren global acenteler üzerinden açıldığı duyuruldu.', '02 Ağustos 2026')">
-                        <span class="badge">Ulaşım</span>
-                        <h2>Uluslararası Uçuşlarda Yeni Rotalar ve Seferler Başlıyor</h2>
-                        <p>Türk Hava Yolları kış sezonunda uçuş ağını yeni kıtalarla genişletiyor.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Yaşam</span></div>
-                    </div>
-
-                    <!-- 20. Haber -->
-                    <div class="card" onclick="openFullNews('Tarım', 'Tarımda Dijital Dönüşüm: Akıllı Sulama Sistemleri', 'Kuraklık riskine karşı tarımsal sulamada verimliliği artırmak amacıyla hayata geçirilen yapay zeka destekli akıllı projeler yaygınlaşıyor.\n\nToprak nemini ve hava koşullarını anlık olarak analiz eden sensörler sayesinde su israfının önüne geçilirken, mahsul kalitesinde de gözle görülür bir artış elde edildiği bildirildi.', '02 Ağustos 2026')">
-                        <span class="badge">Tarım</span>
-                        <h2>Tarımda Dijital Dönüşüm: Akıllı Sulama Sistemleri</h2>
-                        <p>Kuraklıkla mücadele kapsamında çiftçilere yönelik yapay zeka destekli sulama projeleri.</p>
-                        <div class="news-meta"><span>02.08.2026</span><span>Gündem</span></div>
-                    </div>
-
                 </div>
 
             </main>
 
-            <!-- Sağ Taraf: Çok Okunanlar ve Gündem Listesi -->
             <aside class="content-right">
                 <div class="sidebar-section">
                     <div class="sidebar-title">Günün En Çok Okunanları</div>
                     <ul class="sidebar-list">
                         <li>
                             <span class="num">1</span>
-                            <a onclick="openFullNews('Teknoloji', 'Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi', 'Yerli otomobil TOGG, yeni donanım paketleri ve artırılmış menzil seçenekleriyle ön sipariş sürecini hızlandırdı. Otomobil severlerin yoğun ilgi gösterdiği bu süreçte teslimat tarihleri de açıklandı.', '02 Ağustos 2026')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi duyuruldu</a>
+                            <a onclick="openFullNews('Teknoloji', 'Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi', 'Yerli otomobil TOGG, yeni donanım paketleri ve artırılmış menzil seçenekleriyle ön sipariş sürecini hızlandırdı.', '02 Ağustos 2026')">⚡ Yerli otomobil TOGG için yeni donanım paketleri ve fiyat listesi duyuruldu</a>
                         </li>
                         <li>
                             <span class="num">2</span>
-                            <a onclick="openFullNews('Yaşam', 'İstanbul için meteorolojiden sarı kodlu fırtına uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve çevresinde etkili olacak kuvvetli fırtına ve sağanak yağış nedeniyle vatandaşların tedbirli olmasını istedi. Ulaşımda aksamalar yaşanabileceği belirtildi.', '02 Ağustos 2026')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
-                        </li>
-                        <li>
-                            <span class="num">3</span>
-                            <a onclick="openFullNews('Spor', 'Süper Lig\'de derbi heyecanı: Muhtemel 11\'ler', 'Süper Lig\'in zirvesini belirleyecek dev derbide takımların sahaya çıkacağı muhtemel 11\'ler netleşti. Teknik direktörlerin son taktik idmanlarında çift yönlü oyun kurgusu üzerinde durduğu öğrenildi.', '02 Ağustos 2026')">⚽ Süper Lig'de derbi heyecanı: Kritik karşılaşmanın muhtemel 11'leri belli oldu</a>
-                        </li>
-                        <li>
-                            <span class="num">4</span>
-                            <a onclick="openFullNews('Ekonomi', 'Borsada rekor kıran hisseler yükselişte', 'BIST 100 endeksi haftanın ilk işlem gününde güçlü bir ivme yakaladı. Rekor kıran hisseler yatırımcıların yüzünü güldürürken uzmanlar piyasa analizlerini paylaştı.', '02 Ağustos 2026')">📈 Borsada rekor kıran hisseler yatırımcısının yüzünü güldürmeye devam ediyor</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-title">Döviz & Altın</div>
-                    <ul class="sidebar-list">
-                        <li>
-                            <a onclick="openFullNews('Ekonomi', 'Dolar/TL Piyasası Analizi', 'Dolar kuru serbest piyasada 35.80 TL seviyesinden işlem görüyor. Küresel piyasalardaki veriler ve yurt içi gelişmeler döviz kurlarındaki hareketliliği belirliyor.', '02 Ağustos 2026')"><strong>USD/TRY:</strong> 35.80 TL (%+0.12)</a>
-                        </li>
-                        <li>
-                            <a onclick="openFullNews('Ekonomi', 'Euro/TL Piyasası Analizi', 'Euro kuru serbest piyasada 38.65 TL seviyesinden alıcı buluyor. Avrupa Merkez Bankası\'nın kararları parite üzerindeki etkisini sürdürüyor.', '02 Ağustos 2026')"><strong>EUR/TRY:</strong> 38.65 TL (%-0.05)</a>
-                        </li>
-                        <li>
-                            <a onclick="openFullNews('Ekonomi', 'Altın Piyasası ve Kapalıçarşı', 'Kapalıçarşı\'da gram altın 2.650 TL civarında işlem görmekte. Yatırımcıların güvenli liman olarak altına olan talebi yüksek seyretmeye devam ediyor.', '02 Ağustos 2026')"><strong>Gram Altın:</strong> 2.650 TL (%+0.45)</a>
+                            <a onclick="openFullNews('Yaşam', 'İstanbul için meteorolojiden sarı kodlu fırtına uyarısı', 'Meteoroloji Genel Müdürlüğü, İstanbul ve çevresinde etkili olacak kuvvetli fırtına ve sağanak yağış nedeniyle vatandaşların tedbirli olmasını istedi.', '02 Ağustos 2026')">🌧️ İstanbul için meteorolojiden sarı kodlu sağanak yağış ve fırtına uyarısı</a>
                         </li>
                     </ul>
                 </div>
@@ -740,44 +653,43 @@
         </div>
     </div>
 
-    <!-- Etkileşimli Detaylı Haber Modalı (Orta Uzunlukta Metin Alanı) -->
+    <!-- Haber Detay Modalı -->
     <div id="fullNewsModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeFullNews()">&times;</span>
             <span id="modal-cat" class="modal-category">KATEGORİ</span>
             <h2 id="modal-headline" class="modal-title">Haber Başlığı Burada Yer Alacak</h2>
             <div id="modal-date" class="modal-date">Yayınlanma Tarihi</div>
-            <div id="modal-content-body" class="modal-body">
-                <!-- Orta uzunlukta haber metni buraya dinamik olarak gelecek -->
-            </div>
+            <div id="modal-content-body" class="modal-body"></div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-logo">HABERTÜRK</div>
             <ul class="footer-links">
-                <li><a onclick="openFullNews('Kurumsal', 'Hakkımızda', 'Habertürk, Türkiye\'nin en güncel ve tarafsız haber akışını okuyucularına sunmak amacıyla 2026 yılında güncellenen altyapısıyla yayın hayatına devam etmektedir.', '02 Ağustos 2026')">Hakkımızda</a></li>
-                <li><a onclick="openFullNews('Kurumsal', 'Gizlilik Politikası', 'Bu web sitesi tamamen kurgusal ve eğlence amaçlı tasarlanmış bir prototiptir. Ziyaretçi verileri hiçbir şekilde toplanmamaktadır.', '02 Ağustos 2026')">Gizlilik Politikası</a></li>
-                <li><a onclick="openFullNews('Kurumsal', 'İletişim Bilgileri', 'Bizimle iletişime geçmek için hayal gücünüzü kullanabilir ya da prototip sayfa üzerinden bildirimde bulunabilirsiniz.', '02 Ağustos 2026')">İletişim</a></li>
-                <li><a onclick="openFullNews('Kurumsal', 'Künye', 'Genel Yayın Yönetmeni: Yapay Zeka Kolaboratör\nYazılım ve Tasarım: Modern Web Mimarisi', '02 Ağustos 2026')">Künye</a></li>
+                <li><a onclick="openFullNews('Kurumsal', 'Hakkımızda', 'Habertürk, Türkiye\'nin en güncel ve tarafsız haber akışını sunmaktadır.', '02 Ağustos 2026')">Hakkımızda</a></li>
+                <li><a onclick="openFullNews('Kurumsal', 'Gizlilik Politikası', 'Bu web sitesi kurgusal ve eğlence amaçlıdır.', '02 Ağustos 2026')">Gizlilik Politikası</a></li>
             </ul>
         </div>
         <div class="container">
             <div class="footer-bottom">
-                &copy; 2026 HABERTÜRK - Tüm Hakları Saklıdır. Bu web sitesi şaka ve kurgu amaçlı tasarlanmış bir prototiptir.
+                &copy; 2026 HABERTÜRK - Tüm Hakları Saklıdır.
             </div>
         </div>
     </footer>
 
     <script>
+        // Çerezi kabul etme veya reddetme fonksiyonu
+        function acceptCookies() {
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
         function openFullNews(category, title, text, date) {
             document.getElementById('modal-cat').innerText = category;
             document.getElementById('modal-headline').innerText = title;
             document.getElementById('modal-date').innerText = "Yayınlanma: " + date;
             
-            // Metin içindeki satır sonlarını (<br> tagine) dönüştürerek orta uzunlukta paragraflar halinde yazdırıyoruz
             let formattedText = text.split('\n\n').map(paragraph => `<p>${paragraph}</p>`).join('');
             document.getElementById('modal-content-body').innerHTML = formattedText;
             
@@ -789,7 +701,7 @@
         }
 
         function filterCategory(category) {
-            openFullNews(category, category + ' Kategorisi Haber Akışı', category + ' kategorisine ait en son gelişmeler, son dakika duyuruları ve özel dosyalar bu alanda listelenmektedir. Editörlerimiz tarafından hazırlanan içerikler gün boyunca güncellenmektedir.', '02 Ağustos 2026');
+            openFullNews(category, category + ' Kategorisi Haber Akışı', category + ' kategorisine ait en son gelişmeler ve son dakika duyuruları bu alanda listelenmektedir.', '02 Ağustos 2026');
         }
 
         window.onclick = function(event) {
